@@ -121,11 +121,7 @@ Shl update - HTA:
 			});
 
 			// Globális változók:
-			window.g = {
-				smooth	: false,
-				dpi		: "",
-				font		: ""
-			};
+			window.g = { smooth: false, dpi: "", font: "" };
 
 			// Az ablak betöltésekor:
 			Shl('WND').on_load(function() {
