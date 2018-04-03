@@ -1,0 +1,260 @@
+﻿Shl update - Latest version: 180403
+
+Shl update - HTA:
+
+<START-TEXT>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- 2018.04.03. -->
+		<!-- ========================================= -->
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<meta http-equiv="MSThemeCompatible" content="Yes">
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
+		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }</script>
+		<title>DPI és Betűtípus</title>
+		<style type="text/css">
+
+			* {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			body {
+				height: 230px;
+				background-color: #F5F5F5;
+				border-top: 1px solid #AAA;
+			}
+
+			select {
+				width: 100%;
+				border: 2px solid #888;
+				margin-top: 5px;
+				margin-bottom: 10px;
+				padding: 0;
+			}
+
+			select:hover {
+				border-color: #444;
+				cursor: pointer;
+			}
+
+			label:hover {
+				cursor: pointer;
+				color: #49F;
+			}
+
+			#smooth_div {
+				display: inline-block;
+			}
+
+			#reset_div {
+				position: absolute;
+				display: inline-block;
+				float: right;
+				right: 12px;
+			}
+
+			#reset_div label:hover {
+				color: #F00;
+			}
+
+			#button {
+				display: inline-block;
+				margin-top: 6px;
+				width: 200px;
+				padding: 3px 0;
+				background-color: #DDD;
+				text-align: center;
+				border: 1px solid #AAA;
+				transition: 0.2s;
+			}
+
+			#button:hover {
+				background-color: #CEF;
+				border-color: #49F;
+				cursor: pointer;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div style="margin: 10px;">
+			Javított DPI méret:<br>
+			<select id="dpi_selector">
+				<option onclick="window.focus()" value="4096_96_0">100%</option>
+				<option onclick="window.focus()" value="4120_120_1">125%</option>
+				<option onclick="window.focus()" value="4120_144_1">150%</option>
+			</select><br>
+			Rendszer betűtípus:<br>
+			<select id="font_selector">
+				<option onclick="window.focus()" value="Segoe">Segoe UI (alapértelmezett)</option>
+				<option onclick="window.focus()" value="MS Sans Serif">MS Sans Serif (optimális)</option>
+				<option onclick="window.focus()" value="Calibri Light">Calibri Light</option>
+				<option onclick="window.focus()" value="Segoe Print">Segoe Print</option>
+				<option onclick="window.focus()" value="Arial">Arial</option>
+				<option onclick="window.focus()" value="Arial Félkövér">Arial Bold</option>
+			</select><br>
+			<div id="smooth_div"><input type="checkbox" id="font_smooth"></input><label for="font_smooth">Élsimítás</label></div>
+			<div id="reset_div"><input type="checkbox" id="remove_box"></input><label for="remove_box" title="- Törli a jobb-klikk menüből&#013;- Alaphelyzetbe állítja a Registry-t">Visszaállítás</label></div>
+		</div>
+		<center><div id="button" onclick="set_up()">Kész és kijelentkezés</div></center>
+
+		<script type="text/javascript">
+
+			// Frissítés:
+			Shl('HTA').update({
+				current_ver	: 180403,
+				update_file	: "https://re-is.github.io/update/dnf.latest.txt",
+				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.03\n\nMost frissíted?"
+			});
+
+			// HTA ablak indítása:
+			Shl('WND').start({
+				icon		: 'dnf.ico',
+				type		: 'tool',
+				caption	: true,
+				width		: '260px',
+				height	: '230px'
+			});
+
+			window.g = {
+				smooth	: false,
+				dpi		: "",
+				font		: ""
+			};
+
+			// Az ablak betöltésekor:
+			Shl('WND').on_load(function() {
+				// Értékek beírása, ha lehet:
+				try {
+					Shl('#dpi_selector').value = Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\FixedDpiSize');
+					Shl('#font_selector').value = Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\CurrentFontFamily');
+					Shl('#font_smooth').checked = JSON.parse(Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\CurrentFontSmooth'));
+				}
+				catch(e) {}
+				// Induláskor az értékek megadása:
+				g.dpi = Shl('#dpi_selector').value;
+				g.font = Shl('#font_selector').value;
+				g.smooth = Shl('#font_smooth').checked;
+			});
+
+			// Váltások:
+			Shl('#font_smooth').onchange = function() { g.smooth = !g.smooth; }
+			Shl('#dpi_selector').onchange = function() { g.dpi = this.value; }
+			Shl('#font_selector').onchange = function() {
+				g.font = this.value;
+				// Ha alapértelmezett, akkor az élsimítás kipipálása:
+				if (g.font == 'Segoe') {
+					Shl('#font_smooth').checked = true;
+					Shl('#font_smooth').disabled = true;
+				}
+				else {
+					Shl('#font_smooth').checked = g.smooth;
+					Shl('#font_smooth').disabled = false;
+				}
+			}
+
+			// Visszaállításkor a select tag-ek tiltása:
+			Shl('#remove_box').onchange = function() {
+				if (Shl('#font_selector').disabled) {
+					Shl('#font_smooth').checked = g.smooth;
+					Shl('#font_smooth').disabled = false;
+					Shl('#dpi_selector').value = g.dpi;
+					Shl('#dpi_selector').disabled = false;
+					Shl('#font_selector').value = g.font;
+					Shl('#font_selector').disabled = false;
+				}
+				else {
+					Shl('#font_smooth').checked = true;
+					Shl('#font_smooth').disabled = true;
+					Shl('#dpi_selector').value = "4096_96_0";
+					Shl('#dpi_selector').disabled = true;
+					Shl('#font_selector').value = "Segoe";
+					Shl('#font_selector').disabled = true;
+				}
+			}
+
+			// Kész és kijelenkezés:
+			function set_up() {
+				var dpi_data = Shl('#dpi_selector').value;
+				var font_type = Shl('#font_selector').value;
+				var font_smooth = Shl('#font_smooth').checked;
+				var a_DnF = 'HKCR\\DesktopBackground\\Shell\\a_DnF\\';
+				var ctrl_panel = 'HKCU\\Control Panel\\Desktop\\';
+				var current_version = 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\';
+
+				// Visszaállításkor:
+				if (Shl('#remove_box').checked) {
+					// Alap betűtípus beállítása:
+					font_type = 'Segoe';
+					try {
+						// Törlés a menüből:
+						Shl('WSS').RegDelete(a_DnF + 'command\\');
+						Shl('WSS').RegDelete(a_DnF);
+						// DPI és betűtípus adat törlése:
+						Shl('WSS').RegDelete(ctrl_panel + 'FixedDpiSize');
+						Shl('WSS').RegDelete(ctrl_panel + 'CurrentFontFamily');
+						Shl('WSS').RegDelete(ctrl_panel + 'CurrentFontSmooth');
+					}
+					catch(e) {}
+					// DPI visszaállítása:
+					Shl('WSS').RegWrite(ctrl_panel + 'DpiScalingVer', '4096', 'REG_DWORD');
+					Shl('WSS').RegWrite(ctrl_panel + 'LogPixels', '96', 'REG_DWORD');
+					Shl('WSS').RegWrite(ctrl_panel + 'Win8DpiScaling', '0', 'REG_DWORD');
+				}
+				else {
+					// Hozzáadás a menühöz, ha még nincs:
+					try {
+						Shl('WSS').RegRead(a_DnF);
+					}
+					catch(e) {
+						Shl('WSS').RegWrite(a_DnF, 'DPI és Betűtípus', 'REG_SZ');
+						Shl('WSS').RegWrite(a_DnF + 'Position', 'bottom', 'REG_SZ');
+						Shl('WSS').RegWrite(a_DnF + 'Icon', '"' + Shl('HTA').pathname('folder') + '\\dnf.ico"', 'REG_SZ');
+						Shl('WSS').RegWrite(a_DnF + 'command\\', 'mshta.exe "' + Shl('HTA').pathname('full') + '"', 'REG_SZ');
+					}
+					// Adatok írása:
+					Shl('WSS').RegWrite(ctrl_panel + 'FixedDpiSize', dpi_data, 'REG_SZ');
+					Shl('WSS').RegWrite(ctrl_panel + 'CurrentFontFamily', font_type, 'REG_SZ');
+					Shl('WSS').RegWrite(ctrl_panel + 'CurrentFontSmooth', String(font_smooth), 'REG_SZ');
+					// DPI átírás:
+					Shl('WSS').RegWrite(ctrl_panel + 'DpiScalingVer', dpi_data.split("_")[0], 'REG_DWORD');
+					Shl('WSS').RegWrite(ctrl_panel + 'LogPixels', dpi_data.split("_")[1], 'REG_DWORD');
+					Shl('WSS').RegWrite(ctrl_panel + 'Win8DpiScaling', dpi_data.split("_")[2], 'REG_DWORD');
+				}
+
+				// Ha a betűtípus alapértelmezett:
+				if (font_type == 'Segoe') {
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI (TrueType)', 'segoeui.ttf', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Bold (TrueType)', 'segoeuib.ttf', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Italic (TrueType)', 'segoeuii.ttf', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Bold Italic (TrueType)', 'segoeuiz.ttf', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Semibold (TrueType)', 'seguisb.ttf', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Light (TrueType)', 'segoeuil.ttf', 'REG_SZ');
+					try { Shl('WSS').RegDelete(current_version + 'FontSubstitutes\\Segoe UI') } catch(e) {}
+					Shl('WSS').RegWrite(ctrl_panel + 'FontSmoothingType', '2', 'REG_DWORD');
+				}
+				else {
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Bold (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Italic (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Bold Italic (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Semibold (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Light (TrueType)', '', 'REG_SZ');
+					Shl('WSS').RegWrite(current_version + 'FontSubstitutes\\Segoe UI', font_type, 'REG_SZ');
+					Shl('WSS').RegWrite(ctrl_panel + 'FontSmoothingType', ((font_smooth) ? '2' : '1'), 'REG_DWORD');
+				}
+				// Kijelentkezés:
+				Shl('WSS').Run('"C:\\Windows\\system32\\shutdown.exe" -l -f');
+				// Ablak bezárása:
+				window.close();
+			}
+
+		</script>
+	</body>
+</html>
+<END-TEXT>
+
