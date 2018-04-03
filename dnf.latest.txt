@@ -120,6 +120,7 @@ Shl update - HTA:
 				height	: '230px'
 			});
 
+			// Globális változók:
 			window.g = {
 				smooth	: false,
 				dpi		: "",
