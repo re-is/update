@@ -941,6 +941,4 @@ Shl update - HTA:
 		</script>
 	</body>
 </html>
-
 <END-TEXT>
-
