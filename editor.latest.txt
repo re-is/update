@@ -1,0 +1,947 @@
+
+Shl update - Latest version: 180403
+
+Shl update - HTA:
+
+<START-TEXT>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<meta http-equiv="MSThemeCompatible" content="Yes">
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
+		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }</script>
+		<title>!Menü Szerkesztő</title>
+		<style type="text/css">
+
+			* {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			#body {
+				position: absolute;
+				overflow: hidden;
+				background-color: #EEE;
+				border: 2px solid #333;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+			}
+
+			#app_icon {
+				width: 21px;
+				height: 21px;
+				margin-top: 6px;
+				padding-right: 7px;
+				vertical-align: top;
+			}
+
+			b {
+				position: absolute;
+				color: #FFF;
+			}
+
+			input[type='text'] {
+				width: 100%;
+				height: 26px;
+				border: 1px solid #AAA;
+				box-sizing: border-box;
+				padding: 0 0 0 6px;
+				background-color: #f6f6f6;
+				border-radius: 3px;
+				color: #333;
+			}
+
+			input[type='text']:focus {
+				background-color: #FFF;
+				border-color: #D84;
+				color: #000;
+			}
+
+			::selection {
+				color: #FFF;
+				background-color: #444;
+			}
+
+		/* Ablak fejléc */
+
+			#caption {
+				width: 886px;
+				height: 34px;
+				line-height: 32px;
+				padding-left: 10px;
+				color: #FFF;
+				background-color: #222;
+				border-bottom: 1px solid #E83;
+			}
+
+			#caption_buttons {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+
+				#caption_buttons div {
+					display: inline-block;
+					height: 34px;
+					float: left;
+					line-height: 34px;
+					padding: 0 16px;
+					color: #DDD;
+					font-family: "Verdana";
+					font-weight: bold;
+					font-size: 16px;
+					transition: 0.1s;
+				}
+
+				#caption_buttons div:hover {
+					color: #FFF;
+					cursor: pointer;
+				}
+
+				#minimize_button:hover {
+					background-color: rgba(150,150,150,0.5);
+				}
+
+				#close_button:hover {
+					background-color: #E12;
+				}
+
+		/* Gombok */
+
+			.button_true, .button_false,
+			.Shl_msgbox_buttons {
+				display: inline-block;
+				padding: 2px 10px;
+				border-radius: 3px;
+				transition: 150ms;
+			}
+
+			.button_true {
+				background-color: #D95;
+				color: #FFF;
+			}
+
+				.button_true:hover {
+					background-color: #444;
+					color: #FFF;
+					cursor: pointer;
+					transition: 0;
+				}
+
+			.button_false,
+			.Shl_msgbox_buttons {
+				background-color: #CCC;
+				color: #333;
+			}
+
+				.button_false:hover,
+				.Shl_msgbox_buttons:hover {
+					background-color: #444;
+					color: #FFF;
+					cursor: pointer;
+					transition: 0;
+				}
+
+		/* Mappa választók */
+
+			#folder_selector {
+				width: 280px;
+				margin: 50px 330px;
+			}
+
+				.folder_buttons {
+					width: 100%;
+					margin-top: 5px;
+				}
+
+					.create_new_folder_disabled {
+						display: inline-block;
+						background-color: #222;
+						color: #999;
+						padding: 2px 10px;
+					}
+
+					.folder_buttons div {
+						width: 200px;
+						text-align: center;
+					}
+
+					.folder_sequence {
+						display: none;
+						width: 50px !important;
+						padding: 2px 10px !important;
+						text-align: center;
+						float: right;
+					}
+
+		/* Mappa műveletek ( Sorrend, Teljes törlés ) */
+
+			#folder_methods {
+				display: none;
+				position: absolute;
+				width: 300px;
+				margin-left: 330px;
+				bottom: 0;
+			}
+
+				#folder_methods div {
+					width: 200px;
+					text-align: center;
+					margin-top: 5px;
+				}
+
+				#full_clean_up:hover {
+					color: #FFF;
+					background-color: #D20;
+				}
+
+		/* Bal tábla */
+			/* 3-mal szélesebb */
+
+			#left_table {
+				position: absolute;
+				width: 200px;
+				top: 40px;
+				left: -3px;
+			}
+
+				#left_table input {
+					position: relative;
+					width: 200px;
+					z-index: 2;
+				}
+
+				#left_table div {
+					position: relative;
+					width: 100px;
+					z-index: 2;
+				}
+
+		/* Jobb tábla */
+
+			#right_table {
+				position: absolute;
+				right: -3px;
+				bottom: -3px;
+			}
+
+		/* Címek */
+
+			#titles td {
+				color: #E84;
+				border-bottom: 1px solid #E83;
+				font-family: "Ebrima";
+				font-size: 16px;
+				font-weight: bold;
+				text-align: center;
+			}
+
+		/* Cellák */
+
+			/* Input-ok magassága 26px */
+			.rows td div {
+				height: 22px;
+				width: 100%;
+				padding: 2px 0;
+				vertical-align: middle;
+				text-align: center;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+
+		/* Sor törlő gombok */
+
+			.cleaners {
+				color: #444;
+				font-size: 22px;
+				line-height: 22px;
+			}
+
+				.cleaners:hover {
+					color: #FFF;
+					background-color: #D22;
+				}
+
+				.cleaners:active {
+					color: #FFF;
+					background-color: #700;
+				}
+
+		/* Műveleti gombok: Mappa törlése, Összeállítás */
+
+			.method_buttons {
+				display: inline-block;
+				position: absolute;
+				width: 200px;
+				font-size: 18px;
+				text-align: center;
+				padding: 5px 0;
+			}
+
+				#delete_button {
+					display: none;
+					bottom: 40px;
+				}
+
+				#delete_button:hover {
+					background-color: #D22;
+					color: #FFF;
+				}
+
+				#create_button {
+					bottom: 0;
+				}
+
+			#create_layer {
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.6);
+				text-align: center;
+				line-height: 600px;
+				font-size: 32px;
+				color: #FFF;
+				z-index: 1000;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="body">
+			<div id="create_layer">Egy pillanat...</div>
+
+			<!-- Ablak fejléc -->
+			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkesztő</div>
+			<div id="caption_buttons">
+				<div id="minimize_button" onclick="Shl('WND').cmd('min')">_</div>
+				<div id="close_button" onclick="Shl('WND').cmd('close')">X</div>
+			</div>
+
+			<!-- Margós lap
+				- - - - - - - - - - - - - - - - - - - - - - -
+				Fejléc magassága: 34px
+			-->
+			<div style="position: absolute; top: 44px; left: 10px; bottom: 10px; right: 10px;">
+
+				<!-- Kezdőlap -->
+				<div id="start_page">
+					<!-- About a bal felső sarokban -->
+					Készítette: Reich István, 2018<br>
+					<!-- Sorozat.hónap.nap -->
+					Verzió: 6.04.03
+					<!-- Mappa választó -->
+					<div id="folder_selector"></div>
+					<div id="folder_methods">
+						<div id="show_replacer" class="button_false">Sorrend cserélő ⇒</div><div id="replace_button" class="button_false folder_sequence">Csere</div>
+						<div id="full_clean_up" class="button_false">Teljes törlés</div>
+					</div>
+				</div>
+
+				<!-- Táblázatok -->
+				<div id="tables" style="display: none;">
+					<div class="button_true" style="position: absolute; z-index: 10;" onclick="document_reload()">⇐ Vissza</div>
+
+					<!-- Bal -->
+					<table id="left_table" border="0" cellpadding="0" cellspacing="3">
+						<tr><td>Mappa neve:</td></tr>
+						<tr><td><input type="text" id="folder_name"><br><br></td></tr>
+						<tr><td>Mappa helye:</td></tr>
+						<tr><td><div id="top" class="button_true" onclick="change_folder_position(this.id)">Felül</div></td></tr>
+						<tr><td><div id="middle" class="button_false" onclick="change_folder_position(this.id)">Középen</div></td></tr>
+						<tr><td><div id="bottom" class="button_false" onclick="change_folder_position(this.id)">Alul</div><br><br></td></tr>
+						<tr id="copy_1"><td>Visszaállítási fájl<br>másolása az asztalra:</td></tr>
+						<tr id="copy_2"><td><div class="button_false" onclick="copy_to_desktop()">Másolás</div></td></tr>
+					</table>
+
+					<!-- Jobb -->
+					<table id="right_table" border="0" cellpadding="0" cellspacing="3">
+						<tr id="titles">
+							<td width="25" title="Sor törlése">×</td>
+							<td width="220" title="Fájlok keresése&#013;Az összes fájl típus támogatott">Fájl</td>
+							<td width="100" title="Az .exe, .bat, .cmd fájlokhoz társítható parancsok&#013;Nem kötelező">Parancs</td>
+							<td width="220" title="Megjelenített név&#013;Lehet ékezetes betű is">Név</td>
+							<td width="85" title="Elválasztó&#013;A fájl felett lesz">Elválasztó</td>
+						</tr>
+					</table>
+
+					<!-- Műveleti gombok -->
+					<div id="delete_button" class="method_buttons button_false" onclick="delete_folder()">Mappa törlése!</div>
+					<div id="create_button" class="method_buttons button_true" onclick="create_folder()">Összeállítás</div>
+
+				</div><!-- Táblázatok vége -->
+
+			</div><!-- Margós lap vége -->
+
+		</div><!-- Body vége -->
+
+		<script type="text/javascript">
+
+			// Frissítés:
+			Shl('HTA').update({
+				current_ver	: 180403,
+				update_file	: "https://re-is.github.io/update/editor.latest.txt",
+				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.03\n\nMost frissíted?"
+			});
+
+			// Ablak indítása:
+			Shl('WND').start({
+				icon		: 'icons/context.ico',
+				type		: 'fixed',
+				caption	: 'caption',
+				width		: '900px',
+				height 	: '655px',
+				fadein	: 500
+			});
+
+			const OBJ = Shl('OBJ'), MSG = Shl('MSG');
+
+			var cap = Shl('#caption');
+			var dirname = Shl('HTA').pathname('folder');
+			var icons = dirname + '\\icons';
+			var current_key = 0;
+			var new_key = 0;
+			var folder_counter = 0;
+			var full_info = "";
+
+			// Újratöltés:
+			function document_reload() {
+				// Mappa választóba integrálás:
+				Shl('#folder_selector').innerHTML = '<div class="folder_buttons"><div class="button_true" onclick="selected_folder(\'0\')" id="create_new_folder">Új mappa készítése</div></div><br>';
+				// Elemek láthatósága:
+				Shl('#create_layer').style.display = 'none';
+				Shl('#start_page').style.display = 'block';
+				Shl('#tables').style.display = 'none';
+				Shl('#replace_button').style.display = 'none';
+				Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇒";
+				Shl('#folder_methods').style.display = 'none';
+				// Globális változók visszaállítása:
+				current_key = 0;
+				new_key = 0;
+				folder_counter = 0;
+				full_info = "";
+				// Jobb táblába integrálás
+				for (var index = 1; index <= 20; index++) {
+					// A nulladik sor a címkék sor!
+					// Sorok törlése, ha lehet:
+					try { Shl('#right_table').deleteRow(index) }
+					catch(e) {}
+					// Új sor beszúrása:
+					var tr = Shl('#right_table').insertRow(index);
+					// Sor class:
+					tr.setAttribute('class', 'rows');
+					// Törlő gomb:
+					tr.insertCell(0).innerHTML = '<div class="button_false cleaners" onclick="clear_row(\'' + index + '\')">×</div>';
+					// Válassz...:
+					tr.insertCell(1).innerHTML = '<input type="file" style="display: none;" id="link_' + index + '"><div style="width: 220px" id="choose_' + index + '" class="button_false" onclick="browse_file(\'' + index + '\')">' + index + '. Válassz...</div>';
+					// Parancs:
+					tr.insertCell(2).innerHTML = '<input type="text" id="command_' + index + '"></div>';
+					// Név:
+					tr.insertCell(3).innerHTML = '<input type="text" id="name_' + index + '"></div>';
+					// Elválasztó:
+					if (index == 1) {
+						tr.insertCell(4).innerHTML = '<div class="button_false" id="separator_' + index + '">-----</div>';
+					}
+					else {
+						tr.insertCell(4).innerHTML = '<div class="button_false" id="separator_' + index + '" onclick="toggle_separator(\'' + index + '\')">Nincs</div>';
+					}
+				}
+
+				// Összes kulcs adat lekérése, majd a globális "full_info" -ba írása.
+				for (var index = 9; index > 0; index--) {
+					var values = "", key_values = "", blocks = ["Folder", "Links", "Commands", "Names", "Separators"];
+					values += "<" + index + "_KEY>";
+					blocks.forEach(function(block_name) {
+						values += block_name + "=";
+						try {
+							key_values = Shl('WSS').RegRead("HKEY_CURRENT_USER\\SOFTWARE\\Kontext\\" + index + "\\" + block_name);
+							values += key_values;
+							if (block_name == "Folder") {
+								// Mappa választó gombok integrálása:
+								text = '<div class="folder_buttons"><div class="button_true" onclick="selected_folder(\'' + index + '\')"><b>' + index + '.</b>' + key_values.split('<>')[1] + '</div>';
+								text += '<input type="text" id="folder_' + index + '" class="folder_sequence" onkeyup="number_input(this.id)"></div>';
+								Shl('#folder_selector').innerHTML += text;
+								folder_counter += 1;
+							}
+						}
+						catch(e) {
+							new_key = index;
+						}
+						values += "<|>";
+					});
+					values += "<END>";
+					full_info += values;
+				}
+
+				// Ha 9 mappa van, akkor az "Új mappa készítése" gomb tiltása:
+				var cnf = Shl('#create_new_folder');
+				if (folder_counter == 9) {
+					cnf.className = 'create_new_folder_disabled';
+					cnf.disabled = true;
+					cnf.title = "A menüben maximum 9 mappa lehet!";
+				}
+				else {
+					cnf.className = 'button_true';
+					cnf.disabled = false;
+					cnf.title = "";
+				}
+
+				// Ha egynél több mappa van, akkor megjelennek a mappa műveleti gombok a kezdőlapon:
+				if (folder_counter > 1) Shl('#folder_methods').style.display = 'block';
+
+				// Másolás szöveg mejelenítése, ha van Restore.reg fájl
+				if (OBJ.exists(dirname + '\\Restore.reg')) {
+					Shl('#copy_1').style.display = '';
+					Shl('#copy_2').style.display = '';
+				}
+				else {
+					Shl('#copy_1').style.display = 'none';
+					Shl('#copy_2').style.display = 'none';
+				}
+			}
+
+			// Az ablak betöltésekor:
+			Shl('WND').on_load(document_reload);
+
+			// ----------------------------------------------------------------------------------------------------+
+			// ----------------------------------------------------------------------------------------------------+
+
+			// Mappa helyének váltása
+			function change_folder_position(id) {
+				Shl('#top').className = "button_false";
+				Shl('#middle').className = "button_false";
+				Shl('#bottom').className = "button_false";
+				Shl('#'+id).className = "button_true";
+			}
+
+			// Sor törlés
+			function clear_row(index) {
+				var file_browser = Shl('#link_' + index);
+				file_browser.className = '';
+				file_browser.parentNode.replaceChild(file_browser.cloneNode(true), file_browser);
+				Shl('#choose_' + index).innerHTML = index + ". Válassz...";
+				Shl('#choose_' + index).title = "Fájlok keresése";
+				Shl('#choose_' + index).className = 'button_false';
+				Shl('#command_' + index).value = '';
+				Shl('#name_' + index).value = '';
+				Shl('#separator_' + index).className = 'button_false';
+				if (index > 1) Shl('#separator_' + index).innerHTML = "Nincs";
+			}
+
+			// Fájlok tallózása
+			function browse_file(index) {
+				var file_browser = Shl('#link_' + index);
+				file_browser.click();
+				if (file_browser.value != '') {
+					file_browser.className = file_browser.value;
+					Shl('#choose_' + index).innerHTML = file_browser.value.split(/\\/g).pop();
+					Shl('#choose_' + index).title = file_browser.value.replace(/\\/g, "\\\n");
+					Shl('#choose_' + index).className = 'button_true';
+				}
+			}
+
+			// Elválasztó ki-be kapcsolás
+			function toggle_separator(index) {
+				var sep = Shl('#separator_' + index);
+				if (sep.className == 'button_false') {
+					sep.innerHTML = "Van";
+					sep.className = 'button_true';
+				}
+				else {
+					sep.innerHTML = "Nincs";
+					sep.className = 'button_false';
+				}
+			}
+
+			// ----------------------------------------------------------------------------------------------------+
+			// ----------------------------------------------------------------------------------------------------+
+
+			// Kulcs adat
+			function key_info(index) {
+				return full_info.split("<" + index + "_KEY>")[1].split("<END>")[0];
+			}
+
+			// Blokk adat
+			function block_info(index, block_name, value_index) {
+				block = key_info(index).split(block_name + "=")[1].split("<|>")[0];
+				if (value_index) {
+					v = block.split("<>")[value_index]
+					return v ? v : "";
+				}
+				return block;
+			}
+
+			// A kezdőlapon kiválasztott mappa
+			function selected_folder(index) {
+				Shl('#start_page').style.display = 'none';
+				Shl('#tables').style.display = 'block';
+				// Új mappa készítése:
+				if (index == '0') {
+					current_key = String(new_key);
+					Shl('#delete_button').style.display = 'none';
+					Shl('#folder_name').value = '';
+					change_folder_position('top');
+				}
+				// Ha a listából választott:
+				else {
+					current_key = index;
+					Shl('#delete_button').style.display = 'inline-block';
+					Shl('#folder_name').value = block_info(index, "Folder", 1);
+					id = block_info(index, "Folder", 3);
+					change_folder_position(id);
+					// Fájl lista adatok:
+					for (var file_index = 1; file_index <= 20; file_index++) {
+						app_link = block_info(index, "Links", file_index);
+						if (app_link) {
+							Shl('#link_' + file_index).className = app_link;
+							Shl('#choose_' + file_index).innerHTML = app_link.split(/\\/g).pop();
+							Shl('#choose_' + file_index).title = app_link.replace(/\\/g, "\\\n");
+							Shl('#choose_' + file_index).className = 'button_true';
+							Shl('#command_' + file_index).value = block_info(index, "Commands", file_index);
+							Shl('#name_' + file_index).value = block_info(index, "Names", file_index);
+							if (block_info(index, "Separators", file_index) == "true") {
+								Shl('#separator_' + file_index).innerHTML = "Van";
+								Shl('#separator_' + file_index).className = 'button_true';
+							}
+						}
+					}
+				}
+			}
+
+			// "full_info" felülírása az oldalon lévő adatokkal
+			function overwrite_full_info() {
+				var new_key_info = "", f = "Folder=", l = "Links=", c = "Commands=", n = "Names=", s = "Separators=";
+				// Mappa adatok:
+				f += "<>" + Shl('#folder_name').value;
+				f += "<>" + current_key;
+				array = Shl('#left_table').getElementsByTagName('div');
+				for (var i = 0; i < array.length; i++) {
+					if (array[i].className == "button_true") f += "<>" + array[i].id;
+				}
+				// Fájl adatok:
+				for (var file_index = 1; file_index <= 20; file_index++) {
+					if (Shl('#link_' + file_index).className) {
+						l += "<>" + Shl('#link_' + file_index).className;
+						c += "<>" + Shl('#command_' + file_index).value;
+						n += "<>" + Shl('#name_' + file_index).value;
+						bool = Shl('#separator_' + file_index).className == "button_true" ? true : false;
+						s += "<>" + bool.toString();
+					}
+				}
+				new_key_info += f + "<|>" + l + "<|>" + c + "<|>" + n + "<|>" + s + "<|>";
+				full_info = full_info.replace(
+					"<" + current_key + "_KEY>" + key_info(current_key) + "<END>",
+					"<" + current_key + "_KEY>" + new_key_info + "<END>"
+				);
+			}
+
+			// A behívott mappa adatok törlése a "full_info" -ból
+			function delete_current_key() {
+				full_info = full_info.replace(
+					"<" + current_key + "_KEY>" + key_info(current_key) + "<END>",
+					"<" + current_key + "_KEY>Folder=<|>Links=<|>Commands=<|>Names=<|>Separators=<|><END>"
+				);
+			}
+
+			// A mappa neve a-az előtaggal
+			function the_folder_name(index) {
+				var folder_name = block_info(index, "Folder", 1);
+				var first_char = folder_name[0];
+				first_char = first_char.toLowerCase();
+				if (first_char.includes(/1|5|a|á|e|é|i|í|ö|ő|ü|ű|o|ó|u|ú/)) {
+					return 'az "' + folder_name + '"';
+				}
+				else {
+					return 'a "' + folder_name + '"';
+				}
+			}
+
+			// ----------------------------------------------------------------------------------------------------+
+			// ----------------------------------------------------------------------------------------------------+
+
+			// Mappa törlése
+			function delete_folder() {
+				MSG.confirm("Biztos, hogy törlöd " + the_folder_name(current_key) + " mappát ?", function() {
+					// Jelenlegi mappa törlése a "full_info" -ból:
+					delete_current_key();
+					create_files();
+				});
+			}
+
+			// Új mappa készítése
+			function create_folder() {
+				// Jelenlegi mappa adatainak felülírása a "full_info" -ban:
+				overwrite_full_info();
+				// Biztonsági funkciók:
+				if (block_info(current_key, "Folder", 1) == "") {
+					return MSG.ok("Mappa nevet meg kell adni !", function() { Shl('#folder_name').focus() });
+				}
+				if (block_info(current_key, "Links", 1) == "") {
+					return MSG.ok("Legalább 1 fájl szükséges !");
+				}
+				if (OBJ.exists(dirname + '\\Restore.reg')) {
+					return MSG.confirm("Már van egy \"Restore.reg\" (visszaállítási) fájl.\n\nFelülírod ?", function() { create_files() });
+				}
+				create_files();
+			}
+
+			// Fájlok összeállítása
+			function create_files() {
+				Shl('#create_layer').style.display = 'block';
+				// Tisztítás (minden törlése):
+				text = registry_info(true);
+				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				// Új készítés:
+				setTimeout(function() {
+					text = registry_info(false);
+					OBJ.create_file(dirname + '\\Restore.reg', text);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				}, 500);
+				// A Szerkesztő frissítése
+				setTimeout(function() { document_reload() }, 1000);
+			}
+
+			// Registry adatok
+			function registry_info(clean_up) {
+				var adatok_file = 'Windows Registry Editor Version 5.00\r\n';
+				var menu_file = '';
+				var folder_name = "";
+				var folder_id = 0;
+				// Összes mappa név lekérése a "full_info" -ból:
+				for (var index = 1; index <= 9; index++) {
+					// Ha van törlés, akkor az összes mappa törlése:
+					if (clean_up) {
+						folder_name = "///clean_up///";
+					}
+					else {
+						folder_name = block_info(index, "Folder", 1);
+					}
+					// Ha van mappa név:
+					if (folder_name != "") {
+						if (folder_id == 0) {
+							adatok_file += '\r\n; Menü Szerkesztő v.6.0\r\n';
+							adatok_file += '\r\n; Szerkesztő integrálása\r\n';
+							adatok_file += '; ----------------------------------------------------\r\n';
+							adatok_file += self_info(folder_name);
+							adatok_file += '\r\n; Menü adatok\r\n';
+							adatok_file += '; ----------------------------------------------------\r\n';
+						}
+						folder_id += 1;
+						folder_position = block_info(index, "Folder", 3);
+						links = block_info(index, "Links");
+						commands = block_info(index, "Commands");
+						names = block_info(index, "Names");
+						seps = block_info(index, "Separators");
+						//
+						// "Restore.reg" fájl adatai
+						// -----------------------------------------------------------+
+						adatok_file += menu_info(folder_name, folder_id, folder_position, links, commands, names, seps);
+						//
+						// "add_menu.reg" fájl adatai:
+						// -----------------------------------------------------------+
+						menu_file += '\r\n; ' + folder_name + ' mappa\r\n';
+						menu_file += '; ----------------------------------------------------\r\n';
+						// Mappa:
+						menu_file += folder_info(folder_name, folder_id, folder_position);
+						// Appok:
+						for (var app = 1; app <= 20; app++) {
+							menu_file += app_info(
+								folder_name, folder_id, app,
+								block_info(index, "Links", app),
+								block_info(index, "Commands", app),
+								block_info(index, "Names", app),
+								block_info(index, "Separators", app)
+							);
+						}
+					}
+				}
+				return adatok_file + menu_file;
+			}
+
+			// ----------------------------------------------------------------------------------------------------+
+			// ----------------------------------------------------------------------------------------------------+
+
+			// A Szerkesztő integrálása a menübe
+			function self_info(folder_name) {
+				if (folder_name == "///clean_up///") {
+					return '\r\n[-HKEY_CLASSES_ROOT\\DesktopBackground\\Shell\\menu_editor]\r\n';
+				}
+				var reg_text = '\r\n[HKEY_CLASSES_ROOT\\DesktopBackground\\Shell\\menu_editor]\r\n';
+				reg_text += '@="Menü Szerkesztő"\r\n';
+				reg_text += '"Position"="middle"\r\n';
+				reg_text += '"Icon"="\\"' + icons.replace(/\\/g, "\\\\") + '\\\\context.ico\\""\r\n\r\n';
+				reg_text += '[HKEY_CLASSES_ROOT\\DesktopBackground\\Shell\\menu_editor\\command]\r\n';
+				reg_text += '@="mshta.exe \\"' + Shl('HTA').pathname('full').replace(/\\/g, "\\\\") + '\\""\r\n';
+				return reg_text;
+			}
+
+			// Menü adatok
+			function menu_info(folder_name, folder_id, folder_position, links, commands, names, seps) {
+				if (folder_name == "///clean_up///") {
+					return '\r\n[-HKEY_CURRENT_USER\\Software\\Kontext\\' + folder_id + ']\r\n';
+				}
+				var reg_text = '\r\n[HKEY_CURRENT_USER\\Software\\Kontext\\' + folder_id + ']\r\n';
+				reg_text += '"Folder"="<>' + folder_name + '<>' + folder_id +  '<>' + folder_position + '"\r\n';
+				reg_text += '"Links"="' + links.replace(/\\/g, "\\\\") + '"\r\n';
+				reg_text += '"Commands"="' + commands.replace(/\\/g, "\\\\") + '"\r\n';
+				reg_text += '"Names"="' + names + '"\r\n';
+				reg_text += '"Separators"="' + seps + '"\r\n';
+				return reg_text;
+			}
+
+			// Mappa adatok
+			function folder_info(folder_name, folder_id, folder_position) {
+				if (folder_name == "///clean_up///") {
+					return '\r\n[-HKEY_CLASSES_ROOT\\Directory\\Background\\shell\\' + folder_id + ']\r\n';
+				}
+				var reg_text = '\r\n[HKEY_CLASSES_ROOT\\Directory\\Background\\shell\\' + folder_id + ']\r\n';
+				reg_text += '"MUIVerb"="' + folder_name + '"\r\n';
+				reg_text += '"Position"="' + folder_position + '"\r\n';
+				var subCommands = '';
+				for (file_index = 1; file_index <= 20; file_index++) {
+					subCommands += folder_id + '_' + file_index + ';';
+				}
+				reg_text += '"SubCommands"="' + subCommands + '"\r\n';
+				return reg_text;
+			}
+
+			// App adatok
+			function app_info(folder_name, folder_id, file_index, link, command, name, sep) {
+				if (folder_name == "///clean_up///") {
+					return '\r\n[-HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + ']\r\n';
+				}
+				var reg_text = '';
+				if (link != "") {
+					// A \ jelek duplázása a linkben:
+					link = link.replace(/\\/g, "\\\\");
+					// Csak a fájl:
+					file = link.split(/\\\\/g).pop();
+					// Csak a mappa:
+					folder = link.replace("\\\\" + file, "");
+					// Kiterjesztés:
+					ext = file.split(/\./g).pop();
+					// Ikonok:
+					icons_folder = icons.replace(/\\/g, "\\\\");
+					// Registry adatok:
+					reg_text += '\r\n[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + ']\r\n';
+					reg_text += '@="' + name + '"\r\n';
+					// Ikonok
+					// exe:
+					if (ext == "exe") reg_text += '"Icon"="\\"' + link + '\\""\r\n';
+					// Audio:
+					if ("mp3 wma wav flac aac m4a ogg".includes(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\music.ico\\""\r\n';
+					// Video:
+					if ("avi mp4 mov 3gp flv mkv wmv".includes(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\play.ico\\""\r\n';
+					// Szöveg:
+					if ("bat cmd txt reg hta ini vbs rb log".includes(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\text.ico\\""\r\n';
+					// Elválasztó:
+					if (sep == "true") {
+						reg_text += '"CommandFlags"=dword:00000020\r\n';
+					}
+					reg_text += '\r\n[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + '\\command]\r\n';
+					reg_text += '@="cmd.exe /c cd /d \\"' + folder + '\\" && start \\"\\" \\"' + file + '\\"' + command + '"\r\n';
+				}
+				return reg_text;
+			}
+
+			// ----------------------------------------------------------------------------------------------------+
+			// ----------------------------------------------------------------------------------------------------+
+
+			// Szám input
+			function number_input(id) {
+				var e = Shl('#'+id);
+				e.value = e.value.replace(/\D+/g, "");
+				if ((e.value != "") && ((e.value > folder_counter) || (e.value < 1))) {
+					MSG.ok("Az értéknek 1 és " + folder_counter + " között kell lennie !", function() {
+						e.value = "";
+						e.focus();
+					});
+				}
+			}
+
+			// Cserélő mutatása
+			Shl('#show_replacer').onclick = function() {
+				var tags = document.getElementsByTagName('*');
+				for (var i = 0; i < tags.length; i++) {
+					if (tags[i].className.includes("folder_sequence")) {
+						if (tags[i].style.display != 'block') {
+							Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇐";
+							tags[i].style.display = 'block';
+						}
+						else {
+							Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇒";
+							tags[i].style.display = 'none';
+						}
+					}
+				}
+			}
+
+			// Sorrend csere
+			Shl('#replace_button').onclick = function() {
+				// Új indexek ellenőrzése:
+				for (var index = 9; index > 0; index--) {
+					var e = Shl('#folder_' + index);
+					if (e && e.value == "") {
+						return MSG.ok("Hiányzik " + the_folder_name(index) + " mappa indexe !", function() { e.focus() });
+					}
+				}
+				Shl('#create_layer').style.display = 'block';
+				// Régi indexek cseréje:
+				for (var index = 9; index > 0; index--) {
+					var e = Shl('#folder_' + index);
+					if (e && block_info(index, "Folder", 1) != "") {
+						full_info = full_info.replace("<" + index + "_KEY>", "<" + e.value + "__KEY>");
+						full_info = full_info.replace("<>" + index + "<>", "<->" + e.value + "<->");
+					}
+				}
+				full_info = full_info.replace(/__KEY/g, "_KEY");
+				full_info = full_info.replace(/<->/g, "<>");
+				// Tisztítás (minden törlése):
+				text = registry_info(true);
+				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				// Új készítés:
+				setTimeout(function() {
+					text = registry_info(false);
+					OBJ.create_file(dirname + '\\Restore.reg', text);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				}, 500);
+				// A Szerkesztő frissítése:
+				setTimeout(function() { document_reload() }, 1000);
+			}
+
+			// Összes mappa törlése
+			Shl('#full_clean_up').onclick = function() {
+				return MSG.confirm("Biztos, hogy törlöd az összes mappát ?", function() {
+					Shl('#create_layer').style.display = 'block';
+					// Tisztítás (minden törlése):
+					text = registry_info(true);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+					// A Szerkesztő frissítése:
+					setTimeout(function() { document_reload() }, 1000);
+				});
+			}
+
+			// Restore.reg fájl másolása az aztalra
+			function copy_to_desktop() {
+				Shl('#create_layer').style.display = 'block';
+				OBJ.copy(dirname + '\\Restore.reg', Shl('%desktop%'));
+				setTimeout(function() { Shl('#create_layer').style.display = 'none' }, 1000);
+			}
+
+		</script>
+	</body>
+</html>
+
+<END-TEXT>
+
