@@ -1,4 +1,4 @@
-Shl update - Latest version: 180403
+Shl update - Latest version: 180409
 
 Shl update - HTA:
 
@@ -8,7 +8,6 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<meta http-equiv="MSThemeCompatible" content="Yes">
 		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
 		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }</script>
 		<title>!Menü Szerkesztő</title>
@@ -334,7 +333,7 @@ Shl update - HTA:
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2018<br>
 					<!-- Sorozat.hónap.nap -->
-					Verzió: 6.04.03
+					Verzió: 6.04.09
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -384,9 +383,9 @@ Shl update - HTA:
 
 			// Frissítés:
 			Shl('HTA').update({
-				current_ver	: 180403,
+				current_ver	: 180409,
 				update_file	: "https://re-is.github.io/update/editor.latest.txt",
-				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.03\n\nMost frissíted?"
+				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.09\n\nMost frissíted?"
 			});
 
 			// Ablak indítása:
@@ -695,13 +694,13 @@ Shl update - HTA:
 				Shl('#create_layer').style.display = 'block';
 				// Tisztítás (minden törlése):
 				text = registry_info(true);
-				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
 				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				// Új készítés:
 				setTimeout(function() {
 					text = registry_info(false);
-					OBJ.create_file(dirname + '\\Restore.reg', text);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					OBJ.create_file(dirname + '\\Restore.reg', text, true, true);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
 					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				}, 500);
 				// A Szerkesztő frissítése
@@ -905,13 +904,13 @@ Shl update - HTA:
 				full_info = full_info.replace(/<->/g, "<>");
 				// Tisztítás (minden törlése):
 				text = registry_info(true);
-				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
 				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				// Új készítés:
 				setTimeout(function() {
 					text = registry_info(false);
-					OBJ.create_file(dirname + '\\Restore.reg', text);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					OBJ.create_file(dirname + '\\Restore.reg', text, true, true);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
 					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				}, 500);
 				// A Szerkesztő frissítése:
@@ -924,7 +923,7 @@ Shl update - HTA:
 					Shl('#create_layer').style.display = 'block';
 					// Tisztítás (minden törlése):
 					text = registry_info(true);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text);
+					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
 					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 					// A Szerkesztő frissítése:
 					setTimeout(function() { document_reload() }, 1000);
