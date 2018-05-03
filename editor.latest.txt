@@ -1,4 +1,4 @@
-Shl update - Latest version: 180409
+Shl update - Latest version: 180503
 
 Shl update - HTA:
 
@@ -22,7 +22,7 @@ Shl update - HTA:
 			#body {
 				position: absolute;
 				overflow: hidden;
-				background-color: #EEE;
+				background-color: #eee;
 				border: 2px solid #333;
 				top: 0;
 				left: 0;
@@ -40,13 +40,13 @@ Shl update - HTA:
 
 			b {
 				position: absolute;
-				color: #FFF;
+				color: #fff;
 			}
 
 			input[type='text'] {
 				width: 100%;
 				height: 26px;
-				border: 1px solid #AAA;
+				border: 1px solid #aaa;
 				box-sizing: border-box;
 				padding: 0 0 0 6px;
 				background-color: #f6f6f6;
@@ -55,13 +55,13 @@ Shl update - HTA:
 			}
 
 			input[type='text']:focus {
-				background-color: #FFF;
-				border-color: #D84;
+				background-color: #fff;
+				border-color: #d84;
 				color: #000;
 			}
 
 			::selection {
-				color: #FFF;
+				color: #fff;
 				background-color: #444;
 			}
 
@@ -72,9 +72,9 @@ Shl update - HTA:
 				height: 34px;
 				line-height: 32px;
 				padding-left: 10px;
-				color: #FFF;
+				color: #fff;
 				background-color: #222;
-				border-bottom: 1px solid #E83;
+				border-bottom: 1px solid #e83;
 			}
 
 			#caption_buttons {
@@ -97,7 +97,7 @@ Shl update - HTA:
 				}
 
 				#caption_buttons div:hover {
-					color: #FFF;
+					color: #fff;
 					cursor: pointer;
 				}
 
@@ -121,12 +121,12 @@ Shl update - HTA:
 
 			.button_true {
 				background-color: #D95;
-				color: #FFF;
+				color: #fff;
 			}
 
 				.button_true:hover {
 					background-color: #444;
-					color: #FFF;
+					color: #fff;
 					cursor: pointer;
 					transition: 0;
 				}
@@ -140,7 +140,7 @@ Shl update - HTA:
 				.button_false:hover,
 				.Shl_msgbox_buttons:hover {
 					background-color: #444;
-					color: #FFF;
+					color: #fff;
 					cursor: pointer;
 					transition: 0;
 				}
@@ -194,7 +194,7 @@ Shl update - HTA:
 				}
 
 				#full_clean_up:hover {
-					color: #FFF;
+					color: #fff;
 					background-color: #D20;
 				}
 
@@ -232,7 +232,7 @@ Shl update - HTA:
 
 			#titles td {
 				color: #E84;
-				border-bottom: 1px solid #E83;
+				border-bottom: 1px solid #e83;
 				font-family: "Ebrima";
 				font-size: 16px;
 				font-weight: bold;
@@ -262,13 +262,8 @@ Shl update - HTA:
 			}
 
 				.cleaners:hover {
-					color: #FFF;
-					background-color: #D22;
-				}
-
-				.cleaners:active {
-					color: #FFF;
-					background-color: #700;
+					color: #fff;
+					background-color: #d22;
 				}
 
 		/* Műveleti gombok: Mappa törlése, Összeállítás */
@@ -288,8 +283,8 @@ Shl update - HTA:
 				}
 
 				#delete_button:hover {
-					background-color: #D22;
-					color: #FFF;
+					background-color: #d22;
+					color: #fff;
 				}
 
 				#create_button {
@@ -305,8 +300,13 @@ Shl update - HTA:
 				text-align: center;
 				line-height: 600px;
 				font-size: 32px;
-				color: #FFF;
+				color: #fff;
 				z-index: 1000;
+			}
+
+			.Shl_touch_circle {
+				border: none;
+				background-color: #fff;
 			}
 
 		</style>
@@ -333,29 +333,29 @@ Shl update - HTA:
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2018<br>
 					<!-- Sorozat.hónap.nap -->
-					Verzió: 6.04.09
+					Verzió: 6.05.03
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
-						<div id="show_replacer" class="button_false">Sorrend cserélő ⇒</div><div id="replace_button" class="button_false folder_sequence">Csere</div>
-						<div id="full_clean_up" class="button_false">Teljes törlés</div>
+						<div id="show_replacer" class="button_false Shl_touch_buttons" onclick="show_replacer_block()">Sorrend cserélő ⇒</div><div id="replace_button" class="button_false folder_sequence Shl_touch_buttons_300ms" onclick="replace_sequence()">Csere</div>
+						<div id="full_clean_up" class="button_false Shl_touch_buttons_300ms" onclick="full_clear()">Teljes törlés</div>
 					</div>
 				</div>
 
 				<!-- Táblázatok -->
 				<div id="tables" style="display: none;">
-					<div class="button_true" style="position: absolute; z-index: 10;" onclick="document_reload()">⇐ Vissza</div>
+					<div class="button_true Shl_touch_buttons_300ms" style="position: absolute; z-index: 10;" onclick="document_reload()">⇐ Vissza</div>
 
 					<!-- Bal -->
 					<table id="left_table" border="0" cellpadding="0" cellspacing="3">
 						<tr><td>Mappa neve:</td></tr>
 						<tr><td><input type="text" id="folder_name"><br><br></td></tr>
 						<tr><td>Mappa helye:</td></tr>
-						<tr><td><div id="top" class="button_true" onclick="change_folder_position(this.id)">Felül</div></td></tr>
-						<tr><td><div id="middle" class="button_false" onclick="change_folder_position(this.id)">Középen</div></td></tr>
-						<tr><td><div id="bottom" class="button_false" onclick="change_folder_position(this.id)">Alul</div><br><br></td></tr>
+						<tr><td><div id="top" class="button_true Shl_touch_buttons" onclick="change_folder_position('top')">Felül</div></td></tr>
+						<tr><td><div id="middle" class="button_false Shl_touch_buttons" onclick="change_folder_position('middle')">Középen</div></td></tr>
+						<tr><td><div id="bottom" class="button_false Shl_touch_buttons" onclick="change_folder_position('bottom')">Alul</div><br><br></td></tr>
 						<tr id="copy_1"><td>Visszaállítási fájl<br>másolása az asztalra:</td></tr>
-						<tr id="copy_2"><td><div class="button_false" onclick="copy_to_desktop()">Másolás</div></td></tr>
+						<tr id="copy_2"><td><div class="button_false Shl_touch_buttons_300ms" onclick="copy_to_desktop()">Másolás</div></td></tr>
 					</table>
 
 					<!-- Jobb -->
@@ -370,8 +370,8 @@ Shl update - HTA:
 					</table>
 
 					<!-- Műveleti gombok -->
-					<div id="delete_button" class="method_buttons button_false" onclick="delete_folder()">Mappa törlése!</div>
-					<div id="create_button" class="method_buttons button_true" onclick="create_folder()">Összeállítás</div>
+					<div id="delete_button" class="method_buttons button_false Shl_touch_buttons_300ms" onclick="delete_folder()">Mappa törlése!</div>
+					<div id="create_button" class="method_buttons button_true Shl_touch_buttons_300ms" onclick="create_folder()">Összeállítás</div>
 
 				</div><!-- Táblázatok vége -->
 
@@ -383,9 +383,9 @@ Shl update - HTA:
 
 			// Frissítés:
 			Shl('HTA').update({
-				current_ver	: 180409,
+				current_ver	: 180503,
 				update_file	: "https://re-is.github.io/update/editor.latest.txt",
-				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.09\n\nMost frissíted?"
+				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.05.03\n\nMost frissíted?"
 			});
 
 			// Ablak indítása:
@@ -435,19 +435,19 @@ Shl update - HTA:
 					// Sor class:
 					tr.setAttribute('class', 'rows');
 					// Törlő gomb:
-					tr.insertCell(0).innerHTML = '<div class="button_false cleaners" onclick="clear_row(\'' + index + '\')">×</div>';
+					tr.insertCell(0).innerHTML = '<div class="button_false cleaners Shl_touch_buttons" onclick="clear_row(\'' + index + '\')">×</div>';
 					// Válassz...:
-					tr.insertCell(1).innerHTML = '<input type="file" style="display: none;" id="link_' + index + '"><div style="width: 220px" id="choose_' + index + '" class="button_false" onclick="browse_file(\'' + index + '\')">' + index + '. Válassz...</div>';
+					tr.insertCell(1).innerHTML = '<input type="file" style="display: none;" id="link_' + index + '"><div style="width: 220px" id="choose_' + index + '" class="button_false Shl_touch_buttons_300ms" onclick="browse_file(\'' + index + '\')">' + index + '. Válassz...</div>';
 					// Parancs:
 					tr.insertCell(2).innerHTML = '<input type="text" id="command_' + index + '"></div>';
 					// Név:
 					tr.insertCell(3).innerHTML = '<input type="text" id="name_' + index + '"></div>';
 					// Elválasztó:
 					if (index == 1) {
-						tr.insertCell(4).innerHTML = '<div class="button_false" id="separator_' + index + '">-----</div>';
+						tr.insertCell(4).innerHTML = '<div class="button_false Shl_touch_buttons" id="separator_' + index + '">-----</div>';
 					}
 					else {
-						tr.insertCell(4).innerHTML = '<div class="button_false" id="separator_' + index + '" onclick="toggle_separator(\'' + index + '\')">Nincs</div>';
+						tr.insertCell(4).innerHTML = '<div class="button_false Shl_touch_buttons" id="separator_' + index + '" onclick="toggle_separator(\'' + index + '\')">Nincs</div>';
 					}
 				}
 
@@ -462,7 +462,7 @@ Shl update - HTA:
 							values += key_values;
 							if (block_name == "Folder") {
 								// Mappa választó gombok integrálása:
-								text = '<div class="folder_buttons"><div class="button_true" onclick="selected_folder(\'' + index + '\')"><b>' + index + '.</b>' + key_values.split('<>')[1] + '</div>';
+								text = '<div class="folder_buttons"><div class="button_true Shl_touch_buttons_300ms" onclick="selected_folder(\'' + index + '\')"><b>' + index + '.</b>' + key_values.split('<>')[1] + '</div>';
 								text += '<input type="text" id="folder_' + index + '" class="folder_sequence" onkeyup="number_input(this.id)"></div>';
 								Shl('#folder_selector').innerHTML += text;
 								folder_counter += 1;
@@ -485,7 +485,7 @@ Shl update - HTA:
 					cnf.title = "A menüben maximum 9 mappa lehet!";
 				}
 				else {
-					cnf.className = 'button_true';
+					cnf.className = 'button_true Shl_touch_buttons_300ms';
 					cnf.disabled = false;
 					cnf.title = "";
 				}
@@ -512,10 +512,10 @@ Shl update - HTA:
 
 			// Mappa helyének váltása
 			function change_folder_position(id) {
-				Shl('#top').className = "button_false";
-				Shl('#middle').className = "button_false";
-				Shl('#bottom').className = "button_false";
-				Shl('#'+id).className = "button_true";
+				Shl('#top').className = "button_false Shl_touch_buttons";
+				Shl('#middle').className = "button_false Shl_touch_buttons";
+				Shl('#bottom').className = "button_false Shl_touch_buttons";
+				Shl('#'+id).className = "button_true Shl_touch_buttons";
 			}
 
 			// Sor törlés
@@ -525,10 +525,10 @@ Shl update - HTA:
 				file_browser.parentNode.replaceChild(file_browser.cloneNode(true), file_browser);
 				Shl('#choose_' + index).innerHTML = index + ". Válassz...";
 				Shl('#choose_' + index).title = "Fájlok keresése";
-				Shl('#choose_' + index).className = 'button_false';
+				Shl('#choose_' + index).className = 'button_false Shl_touch_buttons_300ms';
 				Shl('#command_' + index).value = '';
 				Shl('#name_' + index).value = '';
-				Shl('#separator_' + index).className = 'button_false';
+				Shl('#separator_' + index).className = 'button_false Shl_touch_buttons';
 				if (index > 1) Shl('#separator_' + index).innerHTML = "Nincs";
 			}
 
@@ -540,20 +540,20 @@ Shl update - HTA:
 					file_browser.className = file_browser.value;
 					Shl('#choose_' + index).innerHTML = file_browser.value.split(/\\/g).pop();
 					Shl('#choose_' + index).title = file_browser.value.replace(/\\/g, "\\\n");
-					Shl('#choose_' + index).className = 'button_true';
+					Shl('#choose_' + index).className = 'button_true Shl_touch_buttons_300ms';
 				}
 			}
 
 			// Elválasztó ki-be kapcsolás
 			function toggle_separator(index) {
 				var sep = Shl('#separator_' + index);
-				if (sep.className == 'button_false') {
+				if (sep.className.includes('button_false')) {
 					sep.innerHTML = "Van";
-					sep.className = 'button_true';
+					sep.className = 'button_true Shl_touch_buttons';
 				}
 				else {
 					sep.innerHTML = "Nincs";
-					sep.className = 'button_false';
+					sep.className = 'button_false Shl_touch_buttons';
 				}
 			}
 
@@ -581,7 +581,7 @@ Shl update - HTA:
 				Shl('#tables').style.display = 'block';
 				// Új mappa készítése:
 				if (index == '0') {
-					current_key = String(new_key);
+					current_key = new_key.toString();
 					Shl('#delete_button').style.display = 'none';
 					Shl('#folder_name').value = '';
 					change_folder_position('top');
@@ -600,12 +600,12 @@ Shl update - HTA:
 							Shl('#link_' + file_index).className = app_link;
 							Shl('#choose_' + file_index).innerHTML = app_link.split(/\\/g).pop();
 							Shl('#choose_' + file_index).title = app_link.replace(/\\/g, "\\\n");
-							Shl('#choose_' + file_index).className = 'button_true';
+							Shl('#choose_' + file_index).className = 'button_true Shl_touch_buttons_300ms';
 							Shl('#command_' + file_index).value = block_info(index, "Commands", file_index);
 							Shl('#name_' + file_index).value = block_info(index, "Names", file_index);
 							if (block_info(index, "Separators", file_index) == "true") {
 								Shl('#separator_' + file_index).innerHTML = "Van";
-								Shl('#separator_' + file_index).className = 'button_true';
+								Shl('#separator_' + file_index).className = 'button_true Shl_touch_buttons';
 							}
 						}
 					}
@@ -620,7 +620,7 @@ Shl update - HTA:
 				f += "<>" + current_key;
 				array = Shl('#left_table').getElementsByTagName('div');
 				for (var i = 0; i < array.length; i++) {
-					if (array[i].className == "button_true") f += "<>" + array[i].id;
+					if (array[i].className.includes("button_true")) f += "<>" + array[i].id;
 				}
 				// Fájl adatok:
 				for (var file_index = 1; file_index <= 20; file_index++) {
@@ -628,8 +628,7 @@ Shl update - HTA:
 						l += "<>" + Shl('#link_' + file_index).className;
 						c += "<>" + Shl('#command_' + file_index).value;
 						n += "<>" + Shl('#name_' + file_index).value;
-						bool = Shl('#separator_' + file_index).className == "button_true" ? true : false;
-						s += "<>" + bool.toString();
+						s += "<>" + (Shl('#separator_' + file_index).className.includes("button_true") ? "true" : "false");
 					}
 				}
 				new_key_info += f + "<|>" + l + "<|>" + c + "<|>" + n + "<|>" + s + "<|>";
@@ -866,7 +865,7 @@ Shl update - HTA:
 			}
 
 			// Cserélő mutatása
-			Shl('#show_replacer').onclick = function() {
+			function show_replacer_block() {
 				var tags = document.getElementsByTagName('*');
 				for (var i = 0; i < tags.length; i++) {
 					if (tags[i].className.includes("folder_sequence")) {
@@ -883,7 +882,7 @@ Shl update - HTA:
 			}
 
 			// Sorrend csere
-			Shl('#replace_button').onclick = function() {
+			function replace_sequence() {
 				// Új indexek ellenőrzése:
 				for (var index = 9; index > 0; index--) {
 					var e = Shl('#folder_' + index);
@@ -918,7 +917,7 @@ Shl update - HTA:
 			}
 
 			// Összes mappa törlése
-			Shl('#full_clean_up').onclick = function() {
+			function full_clear() {
 				return MSG.confirm("Biztos, hogy törlöd az összes mappát ?", function() {
 					Shl('#create_layer').style.display = 'block';
 					// Tisztítás (minden törlése):
