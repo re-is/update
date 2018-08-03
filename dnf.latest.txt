@@ -1,4 +1,6 @@
-Shl update - Latest version: 180403
+Shl update - Latest version: 180803
+
+Shl update - Alert text: Új verzió elérhető.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -6,81 +8,170 @@ Shl update - HTA:
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<!-- 2018.04.03. -->
-		<!-- ========================================= -->
+		<!-- ------------
+			2018.08.03.
+		------------- -->
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<meta http-equiv="MSThemeCompatible" content="Yes">
 		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
-		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }</script>
+		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
+			// Frissítés:
+			Shl('HTA').set_update({
+				'current_ver': 180803,
+				'update_file': "https://re-is.github.io/update/dnf.latest.txt",
+				'msgbox_text': "Új verzió elérhető.\n\nMost frissíted?"
+			});
+		</script>
 		<title>DPI és Betűtípus</title>
 		<style type="text/css">
 
-			* {
+			body * {
 				font-family: "Calibri Light";
 				font-size: 18px;
 				color: #333;
 			}
 
 			body {
-				height: 230px;
-				background-color: #F5F5F5;
-				border-top: 1px solid #AAA;
+				margin: 0;
+				height: 248px;
+				border: 1px solid #555;
+				background-color: #fff;
 			}
+
+			/*--------------------------*/
 
 			select {
 				width: 100%;
-				border: 2px solid #888;
+				border: 2px solid #a0a0a0;
+				border-radius: 3px;
 				margin-top: 5px;
 				margin-bottom: 10px;
-				padding: 0;
+				padding: 3px;
+				transition: 0.1s;
 			}
 
-			select:hover {
-				border-color: #444;
-				cursor: pointer;
+				select:enabled:hover {
+					border-color: #1a7;
+					cursor: pointer;
+				}
+
+				select:disabled {
+					background-color: #eee;
+				}
+
+					select::-ms-expand {
+						border-color: transparent;
+						background-color: transparent;
+						color: #a0a0a0;
+					}
+
+						select:enabled:hover::-ms-expand {
+							color: #1a7;
+						}
+
+					option:checked {
+						background-color: #1a7;
+					}
+
+			/*--------------------------*/
+
+			#checks input {
+				display: none;
 			}
 
-			label:hover {
-				cursor: pointer;
-				color: #49F;
+			.enabled_div, .disabled_div {
+				position: absolute;
+				display: inline-flex;
 			}
 
-			#smooth_div {
-				display: inline-block;
-			}
+				.enabled_div:hover {
+					cursor: pointer;
+				}
+
+				.enabled_div:hover #cb_smooth,
+				.enabled_div:hover #cb_reset {
+					border-color: #1a7;
+					background-color: #1a7;
+				}
 
 			#reset_div {
-				position: absolute;
-				display: inline-block;
 				float: right;
 				right: 12px;
 			}
 
-			#reset_div label:hover {
-				color: #F00;
+			.checked_true, .checked_false {
+				padding: 0;
+				width: 18px;
+				line-height: 16px;
+				text-align: center;
+				color: #fff;
+				margin-right: 3px;
+				border-radius: 3px;
+				transition: 0.1s;
 			}
 
-			#button {
+			.enabled_div .checked_true {
+				border: 2px solid #1a7;
+				background-color: #1a7;
+			}
+
+			.enabled_div .checked_false {
+				border: 2px solid #a0a0a0;
+				background-color: #fff;
+			}
+
+			.disabled_div .checked_true,
+			.disabled_div .checked_false {
+				border: 2px solid #a0a0a0;
+				background-color: #a0a0a0;
+			}
+
+			/*--------------------------*/
+
+			#done_button {
 				display: inline-block;
-				margin-top: 6px;
+				margin-top: 35px;
 				width: 200px;
 				padding: 3px 0;
-				background-color: #DDD;
 				text-align: center;
-				border: 1px solid #AAA;
-				transition: 0.2s;
+				border: 2px solid #a0a0a0;
+				border-radius: 3px;
+				transition: 0.1s;
 			}
 
-			#button:hover {
-				background-color: #CEF;
-				border-color: #49F;
-				cursor: pointer;
+				#done_button:hover {
+					background-color: #1a7;
+					border-color: #1a7;
+					color: #fff;
+					font-weight: bold;
+					cursor: pointer;
+				}
+
+			/*--------------------------*/
+
+			#close_button {
+				position: absolute;
+				display: inline-block;
+				right: 0;
+				color: #000;
+				padding: 0 10px;
+				height: 27px;
+				font-size: 24px;
+				line-height: 24px;
+				border-bottom-left-radius: 3px;
+				transition: 0.1s;
 			}
+
+				#close_button:hover {
+					background-color: #f23;
+					color: #fff;
+					cursor: pointer;
+				}
 
 		</style>
 	</head>
 	<body>
+		<div id="close_button" onclick="window.close()">×</div>
 		<div style="margin: 10px;">
 			Javított DPI méret:<br>
 			<select id="dpi_selector">
@@ -97,31 +188,53 @@ Shl update - HTA:
 				<option onclick="window.focus()" value="Arial">Arial</option>
 				<option onclick="window.focus()" value="Arial Félkövér">Arial Bold</option>
 			</select><br>
-			<div id="smooth_div"><input type="checkbox" id="font_smooth"></input><label for="font_smooth">Élsimítás</label></div>
-			<div id="reset_div"><input type="checkbox" id="remove_box"></input><label for="remove_box" title="- Törli a jobb-klikk menüből&#013;- Alaphelyzetbe állítja a Registry-t">Visszaállítás</label></div>
+			<div id="checks" style="margin-top: 7px;">
+				<div id="smooth_div" class="enabled_div" title="- Tompítja a betűket&#013;- Az ''MS Sans Serif''-nél ajánlott kikapcsolni" onclick="Shl('#font_smooth_box').click()">
+					<input type="checkbox" id="font_smooth_box"><div id="cb_smooth" class="checked_false">&nbsp;</div>
+					Élsimítás
+				</div>
+				<div id="reset_div" class="enabled_div" title="- Törli a jobb-klikk menüből&#013;- Alaphelyzetbe állítja a Registry-t" onclick="Shl('#reset_box').click()">
+					<input type="checkbox" id="reset_box"><div id="cb_reset" class="checked_false">&nbsp;</div>
+					Visszaállítás
+				</div>
+			</div>
 		</div>
-		<center><div id="button" onclick="set_up()">Kész és kijelentkezés</div></center>
-
+		<center><div id="done_button" onclick="setup()">Kész és kijelentkezés</div></center>
 		<script type="text/javascript">
-
-			// Frissítés:
-			Shl('HTA').update({
-				current_ver	: 180403,
-				update_file	: "https://re-is.github.io/update/dnf.latest.txt",
-				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.04.03\n\nMost frissíted?"
-			});
 
 			// HTA ablak indítása:
 			Shl('WND').start({
-				icon		: 'dnf.ico',
+				icon		: 'dnf_icon.ico',
 				type		: 'tool',
-				caption	: true,
+				caption	: false,
 				width		: '260px',
-				height	: '230px'
+				height	: '250px',
+				fadein	: 300
 			});
 
 			// Globális változók:
 			window.g = { smooth: false, dpi: "", font: "" };
+
+			// Egyedi cb beállítása:
+			function box_checked(id, bool) {
+				var e = Shl(id);
+				e.className = (bool ? "checked_true" : "checked_false");
+				e.innerHTML = (bool ? "✔" : "");
+			}
+
+			// Div tiltása:
+			function box_disabled(id, bool) {
+				Shl(id).className = (bool ? "disabled_div" : "enabled_div");
+			}
+
+			// Simítás pipálása, tiltása:
+			function check_disabled_smoothing() {
+				var seg = (g.font == 'Segoe');
+				box_checked('#cb_smooth', seg ? true : g.smooth);
+				box_disabled('#smooth_div', seg);
+				Shl('#font_smooth_box').checked = (seg ? true : g.smooth);
+				Shl('#font_smooth_box').disabled = seg;
+			}
 
 			// Az ablak betöltésekor:
 			Shl('WND').on_load(function() {
@@ -129,44 +242,37 @@ Shl update - HTA:
 				try {
 					Shl('#dpi_selector').value = Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\FixedDpiSize');
 					Shl('#font_selector').value = Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\CurrentFontFamily');
-					Shl('#font_smooth').checked = JSON.parse(Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\CurrentFontSmooth'));
+					Shl('#font_smooth_box').checked = JSON.parse(Shl('WSS').RegRead('HKCU\\Control Panel\\Desktop\\CurrentFontSmooth'));
 				}
 				catch(e) {}
 				// Induláskor az értékek megadása:
 				g.dpi = Shl('#dpi_selector').value;
 				g.font = Shl('#font_selector').value;
-				g.smooth = Shl('#font_smooth').checked;
+				g.smooth = Shl('#font_smooth_box').checked;
+				check_disabled_smoothing();
 			});
 
 			// Váltások:
-			Shl('#font_smooth').onchange = function() { g.smooth = !g.smooth; }
-			Shl('#dpi_selector').onchange = function() { g.dpi = this.value; }
-			Shl('#font_selector').onchange = function() {
-				g.font = this.value;
-				// Ha alapértelmezett, akkor az élsimítás kipipálása:
-				if (g.font == 'Segoe') {
-					Shl('#font_smooth').checked = true;
-					Shl('#font_smooth').disabled = true;
-				}
-				else {
-					Shl('#font_smooth').checked = g.smooth;
-					Shl('#font_smooth').disabled = false;
-				}
-			}
+			Shl('#font_smooth_box').onchange = function() { g.smooth = !g.smooth; box_checked('#cb_smooth', this.checked); };
+			Shl('#dpi_selector').onchange = function() { g.dpi = this.value; };
+			Shl('#font_selector').onchange = function() { g.font = this.value; check_disabled_smoothing(); };
 
 			// Visszaállításkor a select tag-ek tiltása:
-			Shl('#remove_box').onchange = function() {
+			Shl('#reset_box').onchange = function() {
+				box_checked('#cb_reset', this.checked);
+				// Ha tiltott a betűválasztó:
 				if (Shl('#font_selector').disabled) {
-					Shl('#font_smooth').checked = g.smooth;
-					Shl('#font_smooth').disabled = false;
+					check_disabled_smoothing();
 					Shl('#dpi_selector').value = g.dpi;
 					Shl('#dpi_selector').disabled = false;
 					Shl('#font_selector').value = g.font;
 					Shl('#font_selector').disabled = false;
 				}
 				else {
-					Shl('#font_smooth').checked = true;
-					Shl('#font_smooth').disabled = true;
+					box_checked('#cb_smooth', true);
+					box_disabled('#smooth_div', true);
+					Shl('#font_smooth_box').checked = true;
+					Shl('#font_smooth_box').disabled = true;
 					Shl('#dpi_selector').value = "4096_96_0";
 					Shl('#dpi_selector').disabled = true;
 					Shl('#font_selector').value = "Segoe";
@@ -175,16 +281,16 @@ Shl update - HTA:
 			}
 
 			// Kész és kijelenkezés:
-			function set_up() {
+			function setup() {
 				var dpi_data = Shl('#dpi_selector').value;
 				var font_type = Shl('#font_selector').value;
-				var font_smooth = Shl('#font_smooth').checked;
+				var font_smooth_box = Shl('#font_smooth_box').checked;
 				var a_DnF = 'HKCR\\DesktopBackground\\Shell\\a_DnF\\';
 				var ctrl_panel = 'HKCU\\Control Panel\\Desktop\\';
 				var current_version = 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\';
 
 				// Visszaállításkor:
-				if (Shl('#remove_box').checked) {
+				if (Shl('#reset_box').checked) {
 					// Alap betűtípus beállítása:
 					font_type = 'Segoe';
 					try {
@@ -210,13 +316,13 @@ Shl update - HTA:
 					catch(e) {
 						Shl('WSS').RegWrite(a_DnF, 'DPI és Betűtípus', 'REG_SZ');
 						Shl('WSS').RegWrite(a_DnF + 'Position', 'bottom', 'REG_SZ');
-						Shl('WSS').RegWrite(a_DnF + 'Icon', '"' + Shl('HTA').pathname('folder') + '\\dnf.ico"', 'REG_SZ');
+						Shl('WSS').RegWrite(a_DnF + 'Icon', '"' + Shl('HTA').pathname('folder') + '\\dnf_icon.ico"', 'REG_SZ');
 						Shl('WSS').RegWrite(a_DnF + 'command\\', 'mshta.exe "' + Shl('HTA').pathname('full') + '"', 'REG_SZ');
 					}
 					// Adatok írása:
 					Shl('WSS').RegWrite(ctrl_panel + 'FixedDpiSize', dpi_data, 'REG_SZ');
 					Shl('WSS').RegWrite(ctrl_panel + 'CurrentFontFamily', font_type, 'REG_SZ');
-					Shl('WSS').RegWrite(ctrl_panel + 'CurrentFontSmooth', String(font_smooth), 'REG_SZ');
+					Shl('WSS').RegWrite(ctrl_panel + 'CurrentFontSmooth', font_smooth_box.toString(), 'REG_SZ');
 					// DPI átírás:
 					Shl('WSS').RegWrite(ctrl_panel + 'DpiScalingVer', dpi_data.split("_")[0], 'REG_DWORD');
 					Shl('WSS').RegWrite(ctrl_panel + 'LogPixels', dpi_data.split("_")[1], 'REG_DWORD');
@@ -242,7 +348,7 @@ Shl update - HTA:
 					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Semibold (TrueType)', '', 'REG_SZ');
 					Shl('WSS').RegWrite(current_version + 'Fonts\\Segoe UI Light (TrueType)', '', 'REG_SZ');
 					Shl('WSS').RegWrite(current_version + 'FontSubstitutes\\Segoe UI', font_type, 'REG_SZ');
-					Shl('WSS').RegWrite(ctrl_panel + 'FontSmoothingType', ((font_smooth) ? '2' : '1'), 'REG_DWORD');
+					Shl('WSS').RegWrite(ctrl_panel + 'FontSmoothingType', ((font_smooth_box) ? '2' : '1'), 'REG_DWORD');
 				}
 				// Kijelentkezés:
 				Shl('WSS').Run('"C:\\Windows\\system32\\shutdown.exe" -l -f');
