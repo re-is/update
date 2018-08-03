@@ -1,5 +1,5 @@
-Shl update - Latest version: 180803
+Shl update - Latest version: 180804
 
-Shl update - Alert text: Javítva lett ez a Kódmásoló aug.03-án!\n\nHa most frissíted, az 'Igen' után\nkattints a 'Futtatásra'.\n\n\nMegteszed most?<END-OF-ALERTTEXT>
+Shl update - Alert text: Javítottam ezen a Kódmásolón aug.04.-én!\n\nHa most frissíted, az 'Igen' után\nkattints a 'Futtatásra'.\n\n\nMegteszed most?<END-OF-ALERTTEXT>
 
-Shl update - DDL: https://drive.google.com/uc?export=download&id=1vZS81cYOY4oV_wLXP97bdeMZjEi2xwaX
+Shl update - DDL: https://drive.google.com/uc?export=download&id=1LhRx4Y97wp3cA1x-fbnDmAWKFckauxJW
