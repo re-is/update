@@ -1,4 +1,6 @@
-Shl update - Latest version: 180503
+Shl update - Latest version: 180803
+
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.08.03\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -9,11 +11,18 @@ Shl update - HTA:
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
 		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
-		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }</script>
+		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
+			// Frissítés:
+			Shl('HTA').set_update({
+				'current_ver': 180803,
+				'update_file': "https://re-is.github.io/update/editor.latest.txt",
+				'msgbox_text': "Új verzió jelent meg ezen a napon: 2018.08.03\n\nMost frissíted?"
+			});
+		</script>
 		<title>!Menü Szerkesztő</title>
 		<style type="text/css">
 
-			* {
+			body * {
 				font-family: "Calibri Light";
 				font-size: 18px;
 				color: #333;
@@ -333,7 +342,7 @@ Shl update - HTA:
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2018<br>
 					<!-- Sorozat.hónap.nap -->
-					Verzió: 6.05.03
+					Verzió: 6.08.03
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -380,13 +389,6 @@ Shl update - HTA:
 		</div><!-- Body vége -->
 
 		<script type="text/javascript">
-
-			// Frissítés:
-			Shl('HTA').update({
-				current_ver	: 180503,
-				update_file	: "https://re-is.github.io/update/editor.latest.txt",
-				msgbox_text	: "Új verzió jelent meg ezen a napon: 2018.05.03\n\nMost frissíted?"
-			});
 
 			// Ablak indítása:
 			Shl('WND').start({
