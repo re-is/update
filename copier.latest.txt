@@ -1,4 +1,4 @@
-Shl update - Latest version: 180820
+Shl update - Latest version: 180800
 
 Shl update - Alert text: Javítottam ezen a Kódmásolón aug.20.-án!\n\nMost frissíted?<END-OF-ALERTTEXT>
 
