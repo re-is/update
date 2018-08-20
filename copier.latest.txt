@@ -1,5 +1,195 @@
-Shl update - Latest version: 180804
+Shl update - Latest version: 180820
 
-Shl update - Alert text: Javítottam ezen a Kódmásolón aug.04.-én!\n\nHa most frissíted, az 'Igen' után\nkattints a 'Futtatásra'.\n\n\nMegteszed most?<END-OF-ALERTTEXT>
+Shl update - Alert text: Javítottam ezen a Kódmásolón aug.20.-án!\n\nMost frissíted?<END-OF-ALERTTEXT>
 
-Shl update - DDL: https://drive.google.com/uc?export=download&id=1LhRx4Y97wp3cA1x-fbnDmAWKFckauxJW
+Shl update - HTA:
+
+<START-TEXT>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shlproto.min.js"></script>
+		<script type="text/javascript">try { 'ABOUT'.shlInfo() } catch(e) { alert("Nincs internet!\n\nPróbáld később."); window.close(); }
+			// Frissítés:
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 180820,
+				'update-file': "https://re-is.github.io/update/copier.latest.txt",
+				'msgbox-text': "Javítottam ezen a Kódmásolón aug.20.-án!\n\nMost frissíted?"
+			});
+		</script>
+		<title>ESET Kódmásoló</title>
+		<style type="text/css">
+
+			body * {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			#body {
+				position: absolute;
+				overflow: hidden;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background: linear-gradient(to right, #f5f5f5, #fff);
+				border: 1px solid #aaa;
+			}
+
+				#margin_page {
+					position: absolute;
+					top: 20px;
+					left: 20px;
+					bottom: 20px;
+					right: 20px;
+				}
+
+					#about {
+						font-style: italic;
+					}
+
+					#start_page {
+						margin-top: 20px;
+						height: auto;
+					}
+
+						#frame {
+							width: 420px;
+							height: 50px;
+							border: none;
+							visibility: hidden;
+						}
+
+						li, span {
+							font-family: "Arial";
+							letter-spacing: 0.5px;
+							font-size: 16px;
+						}
+
+						li {
+							color: #39d;
+							margin-top: 20px;
+						}
+
+						span {
+							color: #e62;
+							font-weight: bold;
+						}
+
+						#button {
+							display: inline-block;
+							padding: 6px 20px 8px 20px;
+							font-family: "Verdana";
+							text-shadow: 0 0 0 transparent;
+							letter-spacing: 1px;
+							color: #fff;
+							background-color: #999;
+							transition: 0.2s;
+						}
+
+							#button:hover {
+								background-color: #777;
+								cursor: pointer;
+							}
+
+			#close {
+				position: absolute;
+				display: inline-block;
+				top: -6px;
+				right: 8px;
+				font-size: 30px;
+				padding: 3px 13px;
+				z-index: 100;
+			}
+
+				#close:hover {
+					background-color: #d32;
+					color: #fff;
+					cursor: pointer;
+				}
+
+		</style>
+	</head>
+	<body>
+		<div id="body">
+			<div id="margin_page">
+				<div id="about">
+					ESET 11 Kódmásoló, 2018.08.20<br>
+					Készítette: Reich István, 2017
+				</div>
+				<div id="start_page">
+					Csak az ESET <span>11.2.49.0</span> verzióhoz!
+					<ul style="height: auto">
+						<li>Ellenőrizd a fenti verziót ! ( Vidd az egér-nyilat az <span>"e"</span> betűre, a tálcán )</li>
+						<li>Zárj be minden ablakot ( böngészők, mappák, más programok )</li>
+						<li>Kattints az <span>Indítás</span>-ra és <span>ne nyúlj a géphez</span>, amíg nem végez !</li>
+						<li>Várd meg, hogy bezáruljon az ESET ablak.</li>
+					</ul>
+					Ha nem jó a kód, akkor várj 1-2 napot és próbáld újra.<br><br>
+					<center><div id="button" onclick="start_autoit()">Indítás</div></center>
+					<center><iframe id="frame" src="https://re-is.github.io/eset/code.html"></iframe></center>
+				</div>
+			</div>
+		</div>
+		<div id="close" onclick="window.close()">×</div>
+		<script type="text/javascript">
+
+			// HTA ablak indítása:
+			'WND'.shlStart({
+				icon		: 'eset32.ico',
+				type		: 'tool',
+				caption	: false,
+				width		: '660px',
+				height	: '390px',
+				fadein	: 700
+			});
+
+			// Globális változók:
+			window.g = {
+				pressed : false,
+				dirname : 'HTA'.shlPathName('folder'),
+				regpath : 'HKCR\\DesktopBackground\\Shell\\eset_license\\'
+			};
+
+			// Az ablak betöltésekor:
+			'WND'.shlOnLoad(function() {
+				var old_version = 0, current_version = 'HTA'.shlGetUpdate('current-ver');
+
+				// Jelenlegi verzió lekérése, ha lehet:
+				try { old_version = parseInt('HTA'.shlActiveX('WSS').RegRead(g.regpath + 'Version')) }
+				catch(e) {}
+
+				// Új verzió integrálása a context menübe:
+				if (current_version > old_version) {
+					'HTA'.shlActiveX('WSS').RegWrite(g.regpath, 'ESET Kódmásoló', 'REG_SZ');
+					'HTA'.shlActiveX('WSS').RegWrite(g.regpath + 'Version', current_version, 'REG_SZ');
+					'HTA'.shlActiveX('WSS').RegWrite(g.regpath + 'Position', 'middle', 'REG_SZ');
+					'HTA'.shlActiveX('WSS').RegWrite(g.regpath + 'Icon', '"' + g.dirname + '\\eset24.ico"', 'REG_SZ');
+					'HTA'.shlActiveX('WSS').RegWrite(g.regpath + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
+				}
+
+				// Gomb lenyomáskor és kattintáskor megjelenik a kód:
+				window.onkeydown = function() { g.pressed = true }
+				window.onkeyup = function() { g.pressed = false }
+				window.onclick = function() {
+					if (!g.pressed) return;
+					'id'.shlElem('button').style.display = 'none';
+					'id'.shlElem('frame').style.visibility = 'visible';
+				}
+			});
+
+			// Indítás:
+			function start_autoit() {
+				'id'.shlElem('button').style.display = 'none';
+				'id'.shlElem('frame').style.visibility = 'visible';
+				'HTA'.shlActiveX('WSS').Run('"' + g.dirname + '\\eset_script.exe"');
+				setTimeout(function() { window.close() }, 7000);
+			}
+
+		</script>
+	</body>
+</html><END-TEXT>
