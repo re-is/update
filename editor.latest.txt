@@ -1,6 +1,6 @@
-Shl update - Latest version: 180803
+Shl update - Latest version: 180821
 
-Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.08.03\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.08.21\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -10,13 +10,14 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/library.min.js"></script>
-		<script type="text/javascript">try { _SHL_ } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shlproto.min.js"></script>
+		<script type="text/javascript">try { 'ABOUT'.shlInfo() } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
 			// Frissítés:
-			Shl('HTA').set_update({
-				'current_ver': 180803,
-				'update_file': "https://re-is.github.io/update/editor.latest.txt",
-				'msgbox_text': "Új verzió jelent meg ezen a napon: 2018.08.03\n\nMost frissíted?"
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 180821,
+				'update-link': "https://re-is.github.io/update/editor.latest.txt",
+				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.08.21\n\nMost frissíted?"
 			});
 		</script>
 		<title>!Menü Szerkesztő</title>
@@ -121,7 +122,7 @@ Shl update - HTA:
 		/* Gombok */
 
 			.button_true, .button_false,
-			.Shl_msgbox_buttons {
+			.shl-msgbox-buttons {
 				display: inline-block;
 				padding: 2px 10px;
 				border-radius: 3px;
@@ -141,13 +142,13 @@ Shl update - HTA:
 				}
 
 			.button_false,
-			.Shl_msgbox_buttons {
+			.shl-msgbox-buttons {
 				background-color: #CCC;
 				color: #333;
 			}
 
 				.button_false:hover,
-				.Shl_msgbox_buttons:hover {
+				.shl-msgbox-buttons:hover {
 					background-color: #444;
 					color: #fff;
 					cursor: pointer;
@@ -313,7 +314,7 @@ Shl update - HTA:
 				z-index: 1000;
 			}
 
-			.Shl_touch_circle {
+			.shl-touch-circle {
 				border: none;
 				background-color: #fff;
 			}
@@ -327,8 +328,8 @@ Shl update - HTA:
 			<!-- Ablak fejléc -->
 			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkesztő</div>
 			<div id="caption_buttons">
-				<div id="minimize_button" onclick="Shl('WND').cmd('min')">_</div>
-				<div id="close_button" onclick="Shl('WND').cmd('close')">X</div>
+				<div id="minimize_button" onclick="'WND'.shlCmd('min')">_</div>
+				<div id="close_button" onclick="'WND'.shlCmd('close')">X</div>
 			</div>
 
 			<!-- Margós lap
@@ -342,29 +343,29 @@ Shl update - HTA:
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2018<br>
 					<!-- Sorozat.hónap.nap -->
-					Verzió: 6.08.03
+					Verzió: 6.08.21
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
-						<div id="show_replacer" class="button_false Shl_touch_buttons" onclick="show_replacer_block()">Sorrend cserélő ⇒</div><div id="replace_button" class="button_false folder_sequence Shl_touch_buttons_300ms" onclick="replace_sequence()">Csere</div>
-						<div id="full_clean_up" class="button_false Shl_touch_buttons_300ms" onclick="full_clear()">Teljes törlés</div>
+						<div id="show_replacer" class="button_false shl-touch-buttons" onclick="show_replacer_block()">Sorrend cserélő ⇒</div><div id="replace_button" class="button_false folder_sequence shl-touch-buttons-300ms" onclick="replace_sequence()">Csere</div>
+						<div id="full_clean_up" class="button_false shl-touch-buttons-300ms" onclick="full_clear()">Teljes törlés</div>
 					</div>
 				</div>
 
 				<!-- Táblázatok -->
 				<div id="tables" style="display: none;">
-					<div class="button_true Shl_touch_buttons_300ms" style="position: absolute; z-index: 10;" onclick="document_reload()">⇐ Vissza</div>
+					<div class="button_true shl-touch-buttons-300ms" style="position: absolute; z-index: 10;" onclick="document_reload()">⇐ Vissza</div>
 
 					<!-- Bal -->
 					<table id="left_table" border="0" cellpadding="0" cellspacing="3">
 						<tr><td>Mappa neve:</td></tr>
 						<tr><td><input type="text" id="folder_name"><br><br></td></tr>
 						<tr><td>Mappa helye:</td></tr>
-						<tr><td><div id="top" class="button_true Shl_touch_buttons" onclick="change_folder_position('top')">Felül</div></td></tr>
-						<tr><td><div id="middle" class="button_false Shl_touch_buttons" onclick="change_folder_position('middle')">Középen</div></td></tr>
-						<tr><td><div id="bottom" class="button_false Shl_touch_buttons" onclick="change_folder_position('bottom')">Alul</div><br><br></td></tr>
+						<tr><td><div id="top" class="button_true shl-touch-buttons" onclick="change_folder_position('top')">Felül</div></td></tr>
+						<tr><td><div id="middle" class="button_false shl-touch-buttons" onclick="change_folder_position('middle')">Középen</div></td></tr>
+						<tr><td><div id="bottom" class="button_false shl-touch-buttons" onclick="change_folder_position('bottom')">Alul</div><br><br></td></tr>
 						<tr id="copy_1"><td>Visszaállítási fájl<br>másolása az asztalra:</td></tr>
-						<tr id="copy_2"><td><div class="button_false Shl_touch_buttons_300ms" onclick="copy_to_desktop()">Másolás</div></td></tr>
+						<tr id="copy_2"><td><div class="button_false shl-touch-buttons-300ms" onclick="copy_to_desktop()">Másolás</div></td></tr>
 					</table>
 
 					<!-- Jobb -->
@@ -379,8 +380,8 @@ Shl update - HTA:
 					</table>
 
 					<!-- Műveleti gombok -->
-					<div id="delete_button" class="method_buttons button_false Shl_touch_buttons_300ms" onclick="delete_folder()">Mappa törlése!</div>
-					<div id="create_button" class="method_buttons button_true Shl_touch_buttons_300ms" onclick="create_folder()">Összeállítás</div>
+					<div id="delete_button" class="method_buttons button_false shl-touch-buttons-300ms" onclick="delete_folder()">Mappa törlése!</div>
+					<div id="create_button" class="method_buttons button_true shl-touch-buttons-300ms" onclick="create_folder()">Összeállítás</div>
 
 				</div><!-- Táblázatok vége -->
 
@@ -391,7 +392,7 @@ Shl update - HTA:
 		<script type="text/javascript">
 
 			// Ablak indítása:
-			Shl('WND').start({
+			'WND'.shlStart({
 				icon		: 'icons/context.ico',
 				type		: 'fixed',
 				caption	: 'caption',
@@ -400,10 +401,8 @@ Shl update - HTA:
 				fadein	: 500
 			});
 
-			const OBJ = Shl('OBJ'), MSG = Shl('MSG');
-
-			var cap = Shl('#caption');
-			var dirname = Shl('HTA').pathname('folder');
+			var cap = 'id'.shlElem('caption');
+			var dirname = 'HTA'.shlPathName('folder');
 			var icons = dirname + '\\icons';
 			var current_key = 0;
 			var new_key = 0;
@@ -413,14 +412,14 @@ Shl update - HTA:
 			// Újratöltés:
 			function document_reload() {
 				// Mappa választóba integrálás:
-				Shl('#folder_selector').innerHTML = '<div class="folder_buttons"><div class="button_true" onclick="selected_folder(\'0\')" id="create_new_folder">Új mappa készítése</div></div><br>';
+				'id'.shlElem('folder_selector').innerHTML = '<div class="folder_buttons"><div class="button_true" onclick="selected_folder(\'0\')" id="create_new_folder">Új mappa készítése</div></div><br>';
 				// Elemek láthatósága:
-				Shl('#create_layer').style.display = 'none';
-				Shl('#start_page').style.display = 'block';
-				Shl('#tables').style.display = 'none';
-				Shl('#replace_button').style.display = 'none';
-				Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇒";
-				Shl('#folder_methods').style.display = 'none';
+				'id'.shlElem('create_layer').style.display = 'none';
+				'id'.shlElem('start_page').style.display = 'block';
+				'id'.shlElem('tables').style.display = 'none';
+				'id'.shlElem('replace_button').style.display = 'none';
+				'id'.shlElem('show_replacer').innerHTML = "Sorrend cserélő ⇒";
+				'id'.shlElem('folder_methods').style.display = 'none';
 				// Globális változók visszaállítása:
 				current_key = 0;
 				new_key = 0;
@@ -430,26 +429,26 @@ Shl update - HTA:
 				for (var index = 1; index <= 20; index++) {
 					// A nulladik sor a címkék sor!
 					// Sorok törlése, ha lehet:
-					try { Shl('#right_table').deleteRow(index) }
+					try { 'id'.shlElem('right_table').deleteRow(index) }
 					catch(e) {}
 					// Új sor beszúrása:
-					var tr = Shl('#right_table').insertRow(index);
+					var tr = 'id'.shlElem('right_table').insertRow(index);
 					// Sor class:
 					tr.setAttribute('class', 'rows');
 					// Törlő gomb:
-					tr.insertCell(0).innerHTML = '<div class="button_false cleaners Shl_touch_buttons" onclick="clear_row(\'' + index + '\')">×</div>';
+					tr.insertCell(0).innerHTML = '<div class="button_false cleaners shl-touch-buttons" onclick="clear_row(\'' + index + '\')">×</div>';
 					// Válassz...:
-					tr.insertCell(1).innerHTML = '<input type="file" style="display: none;" id="link_' + index + '"><div style="width: 220px" id="choose_' + index + '" class="button_false Shl_touch_buttons_300ms" onclick="browse_file(\'' + index + '\')">' + index + '. Válassz...</div>';
+					tr.insertCell(1).innerHTML = '<input type="file" style="display: none;" id="link_' + index + '"><div style="width: 220px" id="choose_' + index + '" class="button_false shl-touch-buttons-300ms" onclick="browse_file(\'' + index + '\')">' + index + '. Válassz...</div>';
 					// Parancs:
 					tr.insertCell(2).innerHTML = '<input type="text" id="command_' + index + '"></div>';
 					// Név:
 					tr.insertCell(3).innerHTML = '<input type="text" id="name_' + index + '"></div>';
 					// Elválasztó:
 					if (index == 1) {
-						tr.insertCell(4).innerHTML = '<div class="button_false Shl_touch_buttons" id="separator_' + index + '">-----</div>';
+						tr.insertCell(4).innerHTML = '<div class="button_false shl-touch-buttons" id="separator_' + index + '">-----</div>';
 					}
 					else {
-						tr.insertCell(4).innerHTML = '<div class="button_false Shl_touch_buttons" id="separator_' + index + '" onclick="toggle_separator(\'' + index + '\')">Nincs</div>';
+						tr.insertCell(4).innerHTML = '<div class="button_false shl-touch-buttons" id="separator_' + index + '" onclick="toggle_separator(\'' + index + '\')">Nincs</div>';
 					}
 				}
 
@@ -460,13 +459,13 @@ Shl update - HTA:
 					blocks.forEach(function(block_name) {
 						values += block_name + "=";
 						try {
-							key_values = Shl('WSS').RegRead("HKEY_CURRENT_USER\\SOFTWARE\\Kontext\\" + index + "\\" + block_name);
+							key_values = 'HTA'.shlActiveX('WSS').RegRead("HKEY_CURRENT_USER\\SOFTWARE\\Kontext\\" + index + "\\" + block_name);
 							values += key_values;
 							if (block_name == "Folder") {
 								// Mappa választó gombok integrálása:
-								text = '<div class="folder_buttons"><div class="button_true Shl_touch_buttons_300ms" onclick="selected_folder(\'' + index + '\')"><b>' + index + '.</b>' + key_values.split('<>')[1] + '</div>';
+								text = '<div class="folder_buttons"><div class="button_true shl-touch-buttons-300ms" onclick="selected_folder(\'' + index + '\')"><b>' + index + '.</b>' + key_values.split('<>')[1] + '</div>';
 								text += '<input type="text" id="folder_' + index + '" class="folder_sequence" onkeyup="number_input(this.id)"></div>';
-								Shl('#folder_selector').innerHTML += text;
+								'id'.shlElem('folder_selector').innerHTML += text;
 								folder_counter += 1;
 							}
 						}
@@ -480,82 +479,82 @@ Shl update - HTA:
 				}
 
 				// Ha 9 mappa van, akkor az "Új mappa készítése" gomb tiltása:
-				var cnf = Shl('#create_new_folder');
+				var cnf = 'id'.shlElem('create_new_folder');
 				if (folder_counter == 9) {
 					cnf.className = 'create_new_folder_disabled';
 					cnf.disabled = true;
 					cnf.title = "A menüben maximum 9 mappa lehet!";
 				}
 				else {
-					cnf.className = 'button_true Shl_touch_buttons_300ms';
+					cnf.className = 'button_true shl-touch-buttons-300ms';
 					cnf.disabled = false;
 					cnf.title = "";
 				}
 
 				// Ha egynél több mappa van, akkor megjelennek a mappa műveleti gombok a kezdőlapon:
-				if (folder_counter > 1) Shl('#folder_methods').style.display = 'block';
+				if (folder_counter > 1) 'id'.shlElem('folder_methods').style.display = 'block';
 
 				// Másolás szöveg mejelenítése, ha van Restore.reg fájl
-				if (OBJ.exists(dirname + '\\Restore.reg')) {
-					Shl('#copy_1').style.display = '';
-					Shl('#copy_2').style.display = '';
+				if ('OBJ'.shlExists(dirname + '\\Restore.reg')) {
+					'id'.shlElem('copy_1').style.display = '';
+					'id'.shlElem('copy_2').style.display = '';
 				}
 				else {
-					Shl('#copy_1').style.display = 'none';
-					Shl('#copy_2').style.display = 'none';
+					'id'.shlElem('copy_1').style.display = 'none';
+					'id'.shlElem('copy_2').style.display = 'none';
 				}
 			}
 
 			// Az ablak betöltésekor:
-			Shl('WND').on_load(document_reload);
+			'WND'.shlOnLoad(document_reload);
 
 			// ----------------------------------------------------------------------------------------------------+
 			// ----------------------------------------------------------------------------------------------------+
 
 			// Mappa helyének váltása
 			function change_folder_position(id) {
-				Shl('#top').className = "button_false Shl_touch_buttons";
-				Shl('#middle').className = "button_false Shl_touch_buttons";
-				Shl('#bottom').className = "button_false Shl_touch_buttons";
-				Shl('#'+id).className = "button_true Shl_touch_buttons";
+				'id'.shlElem('top').className = "button_false shl-touch-buttons";
+				'id'.shlElem('middle').className = "button_false shl-touch-buttons";
+				'id'.shlElem('bottom').className = "button_false shl-touch-buttons";
+				'id'.shlElem(''+id).className = "button_true shl-touch-buttons";
 			}
 
 			// Sor törlés
 			function clear_row(index) {
-				var file_browser = Shl('#link_' + index);
+				var file_browser = 'id'.shlElem('link_' + index);
 				file_browser.className = '';
 				file_browser.parentNode.replaceChild(file_browser.cloneNode(true), file_browser);
-				Shl('#choose_' + index).innerHTML = index + ". Válassz...";
-				Shl('#choose_' + index).title = "Fájlok keresése";
-				Shl('#choose_' + index).className = 'button_false Shl_touch_buttons_300ms';
-				Shl('#command_' + index).value = '';
-				Shl('#name_' + index).value = '';
-				Shl('#separator_' + index).className = 'button_false Shl_touch_buttons';
-				if (index > 1) Shl('#separator_' + index).innerHTML = "Nincs";
+				'id'.shlElem('choose_' + index).innerHTML = index + ". Válassz...";
+				'id'.shlElem('choose_' + index).title = "Fájlok keresése";
+				'id'.shlElem('choose_' + index).className = 'button_false shl-touch-buttons-300ms';
+				'id'.shlElem('command_' + index).value = '';
+				'id'.shlElem('name_' + index).value = '';
+				'id'.shlElem('separator_' + index).className = 'button_false shl-touch-buttons';
+				if (index > 1) 'id'.shlElem('separator_' + index).innerHTML = "Nincs";
 			}
 
 			// Fájlok tallózása
 			function browse_file(index) {
-				var file_browser = Shl('#link_' + index);
+				var file_browser = 'id'.shlElem('link_' + index);
 				file_browser.click();
 				if (file_browser.value != '') {
 					file_browser.className = file_browser.value;
-					Shl('#choose_' + index).innerHTML = file_browser.value.split(/\\/g).pop();
-					Shl('#choose_' + index).title = file_browser.value.replace(/\\/g, "\\\n");
-					Shl('#choose_' + index).className = 'button_true Shl_touch_buttons_300ms';
+					'id'.shlElem('choose_' + index).innerHTML = file_browser.value.split(/\\/g).pop();
+					'id'.shlElem('choose_' + index).title = file_browser.value.replace(/\\/g, "\\\n");
+					'id'.shlElem('choose_' + index).className = 'button_true shl-touch-buttons-300ms';
 				}
 			}
 
 			// Elválasztó ki-be kapcsolás
 			function toggle_separator(index) {
-				var sep = Shl('#separator_' + index);
+				var sep = 'id'.shlElem('separator_' + index);
 				if (sep.className.includes('button_false')) {
 					sep.innerHTML = "Van";
-					sep.className = 'button_true Shl_touch_buttons';
+					sep.className = 'button_true shl-touch-buttons';
 				}
 				else {
 					sep.innerHTML = "Nincs";
-					sep.className = 'button_false Shl_touch_buttons';
+					sep.className = 'button_false shl-touch-buttons';
 				}
 			}
 
@@ -579,35 +578,35 @@ Shl update - HTA:
 
 			// A kezdőlapon kiválasztott mappa
 			function selected_folder(index) {
-				Shl('#start_page').style.display = 'none';
-				Shl('#tables').style.display = 'block';
+				'id'.shlElem('start_page').style.display = 'none';
+				'id'.shlElem('tables').style.display = 'block';
 				// Új mappa készítése:
 				if (index == '0') {
 					current_key = new_key.toString();
-					Shl('#delete_button').style.display = 'none';
-					Shl('#folder_name').value = '';
+					'id'.shlElem('delete_button').style.display = 'none';
+					'id'.shlElem('folder_name').value = '';
 					change_folder_position('top');
 				}
 				// Ha a listából választott:
 				else {
 					current_key = index;
-					Shl('#delete_button').style.display = 'inline-block';
-					Shl('#folder_name').value = block_info(index, "Folder", 1);
+					'id'.shlElem('delete_button').style.display = 'inline-block';
+					'id'.shlElem('folder_name').value = block_info(index, "Folder", 1);
 					id = block_info(index, "Folder", 3);
 					change_folder_position(id);
 					// Fájl lista adatok:
 					for (var file_index = 1; file_index <= 20; file_index++) {
 						app_link = block_info(index, "Links", file_index);
 						if (app_link) {
-							Shl('#link_' + file_index).className = app_link;
-							Shl('#choose_' + file_index).innerHTML = app_link.split(/\\/g).pop();
-							Shl('#choose_' + file_index).title = app_link.replace(/\\/g, "\\\n");
-							Shl('#choose_' + file_index).className = 'button_true Shl_touch_buttons_300ms';
-							Shl('#command_' + file_index).value = block_info(index, "Commands", file_index);
-							Shl('#name_' + file_index).value = block_info(index, "Names", file_index);
+							'id'.shlElem('link_' + file_index).className = app_link;
+							'id'.shlElem('choose_' + file_index).innerHTML = app_link.split(/\\/g).pop();
+							'id'.shlElem('choose_' + file_index).title = app_link.replace(/\\/g, "\\\n");
+							'id'.shlElem('choose_' + file_index).className = 'button_true shl-touch-buttons-300ms';
+							'id'.shlElem('command_' + file_index).value = block_info(index, "Commands", file_index);
+							'id'.shlElem('name_' + file_index).value = block_info(index, "Names", file_index);
 							if (block_info(index, "Separators", file_index) == "true") {
-								Shl('#separator_' + file_index).innerHTML = "Van";
-								Shl('#separator_' + file_index).className = 'button_true Shl_touch_buttons';
+								'id'.shlElem('separator_' + file_index).innerHTML = "Van";
+								'id'.shlElem('separator_' + file_index).className = 'button_true shl-touch-buttons';
 							}
 						}
 					}
@@ -618,19 +617,19 @@ Shl update - HTA:
 			function overwrite_full_info() {
 				var new_key_info = "", f = "Folder=", l = "Links=", c = "Commands=", n = "Names=", s = "Separators=";
 				// Mappa adatok:
-				f += "<>" + Shl('#folder_name').value;
+				f += "<>" + 'id'.shlElem('folder_name').value;
 				f += "<>" + current_key;
-				array = Shl('#left_table').getElementsByTagName('div');
+				array = 'id'.shlElem('left_table').getElementsByTagName('div');
 				for (var i = 0; i < array.length; i++) {
 					if (array[i].className.includes("button_true")) f += "<>" + array[i].id;
 				}
 				// Fájl adatok:
 				for (var file_index = 1; file_index <= 20; file_index++) {
-					if (Shl('#link_' + file_index).className) {
-						l += "<>" + Shl('#link_' + file_index).className;
-						c += "<>" + Shl('#command_' + file_index).value;
-						n += "<>" + Shl('#name_' + file_index).value;
-						s += "<>" + (Shl('#separator_' + file_index).className.includes("button_true") ? "true" : "false");
+					if ('id'.shlElem('link_' + file_index).className) {
+						l += "<>" + 'id'.shlElem('link_' + file_index).className;
+						c += "<>" + 'id'.shlElem('command_' + file_index).value;
+						n += "<>" + 'id'.shlElem('name_' + file_index).value;
+						s += "<>" + ('id'.shlElem('separator_' + file_index).className.includes("button_true") ? "true" : "false");
 					}
 				}
 				new_key_info += f + "<|>" + l + "<|>" + c + "<|>" + n + "<|>" + s + "<|>";
@@ -666,7 +665,7 @@ Shl update - HTA:
 
 			// Mappa törlése
 			function delete_folder() {
-				MSG.confirm("Biztos, hogy törlöd " + the_folder_name(current_key) + " mappát ?", function() {
+				'MSG'.shlConfirm("Biztos, hogy törlöd " + the_folder_name(current_key) + " mappát ?", function() {
 					// Jelenlegi mappa törlése a "full_info" -ból:
 					delete_current_key();
 					create_files();
@@ -679,30 +678,30 @@ Shl update - HTA:
 				overwrite_full_info();
 				// Biztonsági funkciók:
 				if (block_info(current_key, "Folder", 1) == "") {
-					return MSG.ok("Mappa nevet meg kell adni !", function() { Shl('#folder_name').focus() });
+					return 'MSG'.shlOk("Mappa nevet meg kell adni !", function() { 'id'.shlElem('folder_name').focus() });
 				}
 				if (block_info(current_key, "Links", 1) == "") {
-					return MSG.ok("Legalább 1 fájl szükséges !");
+					return 'MSG'.shlOk("Legalább 1 fájl szükséges !");
 				}
-				if (OBJ.exists(dirname + '\\Restore.reg')) {
-					return MSG.confirm("Már van egy \"Restore.reg\" (visszaállítási) fájl.\n\nFelülírod ?", function() { create_files() });
+				if ('OBJ'.shlExists(dirname + '\\Restore.reg')) {
+					return 'MSG'.shlConfirm("Már van egy \"Restore.reg\" (visszaállítási) fájl.\n\nFelülírod ?", function() { create_files() });
 				}
 				create_files();
 			}
 
 			// Fájlok összeállítása
 			function create_files() {
-				Shl('#create_layer').style.display = 'block';
+				'id'.shlElem('create_layer').style.display = 'block';
 				// Tisztítás (minden törlése):
 				text = registry_info(true);
-				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
-				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				'OBJ'.shlCreateFile(dirname + '\\add_menu\\add_menu.reg', text, true, true);
+				'HTA'.shlActiveX('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				// Új készítés:
 				setTimeout(function() {
 					text = registry_info(false);
-					OBJ.create_file(dirname + '\\Restore.reg', text, true, true);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
-					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+					'OBJ'.shlCreateFile(dirname + '\\Restore.reg', text, true, true);
+					'OBJ'.shlCreateFile(dirname + '\\add_menu\\add_menu.reg', text, true, true);
+					'HTA'.shlActiveX('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				}, 500);
 				// A Szerkesztő frissítése
 				setTimeout(function() { document_reload() }, 1000);
@@ -778,7 +777,7 @@ Shl update - HTA:
 				reg_text += '"Position"="middle"\r\n';
 				reg_text += '"Icon"="\\"' + icons.replace(/\\/g, "\\\\") + '\\\\context.ico\\""\r\n\r\n';
 				reg_text += '[HKEY_CLASSES_ROOT\\DesktopBackground\\Shell\\menu_editor\\command]\r\n';
-				reg_text += '@="mshta.exe \\"' + Shl('HTA').pathname('full').replace(/\\/g, "\\\\") + '\\""\r\n';
+				reg_text += '@="mshta.exe \\"' + 'HTA'.shlPathName('full').replace(/\\/g, "\\\\") + '\\""\r\n';
 				return reg_text;
 			}
 
@@ -856,10 +855,10 @@ Shl update - HTA:
 
 			// Szám input
 			function number_input(id) {
-				var e = Shl('#'+id);
+				var e = 'id'.shlElem(''+id);
 				e.value = e.value.replace(/\D+/g, "");
 				if ((e.value != "") && ((e.value > folder_counter) || (e.value < 1))) {
-					MSG.ok("Az értéknek 1 és " + folder_counter + " között kell lennie !", function() {
+					'MSG'.shlOk("Az értéknek 1 és " + folder_counter + " között kell lennie !", function() {
 						e.value = "";
 						e.focus();
 					});
@@ -872,11 +871,11 @@ Shl update - HTA:
 				for (var i = 0; i < tags.length; i++) {
 					if (tags[i].className.includes("folder_sequence")) {
 						if (tags[i].style.display != 'block') {
-							Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇐";
+							'id'.shlElem('show_replacer').innerHTML = "Sorrend cserélő ⇐";
 							tags[i].style.display = 'block';
 						}
 						else {
-							Shl('#show_replacer').innerHTML = "Sorrend cserélő ⇒";
+							'id'.shlElem('show_replacer').innerHTML = "Sorrend cserélő ⇒";
 							tags[i].style.display = 'none';
 						}
 					}
@@ -887,15 +886,15 @@ Shl update - HTA:
 			function replace_sequence() {
 				// Új indexek ellenőrzése:
 				for (var index = 9; index > 0; index--) {
-					var e = Shl('#folder_' + index);
+					var e = 'id'.shlElem('folder_' + index);
 					if (e && e.value == "") {
-						return MSG.ok("Hiányzik " + the_folder_name(index) + " mappa indexe !", function() { e.focus() });
+						return 'MSG'.shlOk("Hiányzik " + the_folder_name(index) + " mappa indexe !", function() { e.focus() });
 					}
 				}
-				Shl('#create_layer').style.display = 'block';
+				'id'.shlElem('create_layer').style.display = 'block';
 				// Régi indexek cseréje:
 				for (var index = 9; index > 0; index--) {
-					var e = Shl('#folder_' + index);
+					var e = 'id'.shlElem('folder_' + index);
 					if (e && block_info(index, "Folder", 1) != "") {
 						full_info = full_info.replace("<" + index + "_KEY>", "<" + e.value + "__KEY>");
 						full_info = full_info.replace("<>" + index + "<>", "<->" + e.value + "<->");
@@ -905,14 +904,14 @@ Shl update - HTA:
 				full_info = full_info.replace(/<->/g, "<>");
 				// Tisztítás (minden törlése):
 				text = registry_info(true);
-				OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
-				Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+				'OBJ'.shlCreateFile(dirname + '\\add_menu\\add_menu.reg', text, true, true);
+				'HTA'.shlActiveX('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				// Új készítés:
 				setTimeout(function() {
 					text = registry_info(false);
-					OBJ.create_file(dirname + '\\Restore.reg', text, true, true);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
-					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+					'OBJ'.shlCreateFile(dirname + '\\Restore.reg', text, true, true);
+					'OBJ'.shlCreateFile(dirname + '\\add_menu\\add_menu.reg', text, true, true);
+					'HTA'.shlActiveX('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 				}, 500);
 				// A Szerkesztő frissítése:
 				setTimeout(function() { document_reload() }, 1000);
@@ -920,12 +919,12 @@ Shl update - HTA:
 
 			// Összes mappa törlése
 			function full_clear() {
-				return MSG.confirm("Biztos, hogy törlöd az összes mappát ?", function() {
-					Shl('#create_layer').style.display = 'block';
+				return 'MSG'.shlConfirm("Biztos, hogy törlöd az összes mappát ?", function() {
+					'id'.shlElem('create_layer').style.display = 'block';
 					// Tisztítás (minden törlése):
 					text = registry_info(true);
-					OBJ.create_file(dirname + '\\add_menu\\add_menu.reg', text, true, true);
-					Shl('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
+					'OBJ'.shlCreateFile(dirname + '\\add_menu\\add_menu.reg', text, true, true);
+					'HTA'.shlActiveX('WSS').Run('"' + dirname + '\\add_menu\\add_menu.exe"', 0, true);
 					// A Szerkesztő frissítése:
 					setTimeout(function() { document_reload() }, 1000);
 				});
@@ -933,12 +932,11 @@ Shl update - HTA:
 
 			// Restore.reg fájl másolása az aztalra
 			function copy_to_desktop() {
-				Shl('#create_layer').style.display = 'block';
-				OBJ.copy(dirname + '\\Restore.reg', Shl('%desktop%'));
-				setTimeout(function() { Shl('#create_layer').style.display = 'none' }, 1000);
+				'id'.shlElem('create_layer').style.display = 'block';
+				'OBJ'.shlCopy(dirname + '\\Restore.reg', 'HTA'.shlEnv('%desktop%'));
+				setTimeout(function() { 'id'.shlElem('create_layer').style.display = 'none' }, 1000);
 			}
 
 		</script>
 	</body>
-</html>
-<END-TEXT>
+</html><END-TEXT>
