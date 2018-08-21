@@ -1,6 +1,6 @@
-Shl update - Latest version: 180800
+Shl update - Latest version: 180821
 
-Shl update - Alert text: Javítottam ezen a Kódmásolón aug.20.-án!\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Javítottam ezen a Kódmásolón aug.21.-én!\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -15,9 +15,9 @@ Shl update - HTA:
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 180820,
-				'update-file': "https://re-is.github.io/update/copier.latest.txt",
-				'msgbox-text': "Javítottam ezen a Kódmásolón aug.20.-án!\n\nMost frissíted?"
+				'current-ver': 180821,
+				'update-link': "https://re-is.github.io/update/copier.latest.txt",
+				'msgbox-text': "Javítottam ezen a Kódmásolón aug.21.-én!\n\nMost frissíted?"
 			});
 		</script>
 		<title>ESET Kódmásoló</title>
@@ -118,7 +118,7 @@ Shl update - HTA:
 		<div id="body">
 			<div id="margin_page">
 				<div id="about">
-					ESET 11 Kódmásoló, 2018.08.20<br>
+					ESET 11 Kódmásoló, 2018.08.21<br>
 					Készítette: Reich István, 2017
 				</div>
 				<div id="start_page">
