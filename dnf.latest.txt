@@ -1,4 +1,4 @@
-Shl update - Latest version: 180825
+Shl update - Latest version: 181005
 
 Shl update - Alert text: Új verzió elérhető.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -9,16 +9,16 @@ Shl update - HTA:
 <html>
 	<head>
 		<!-- ------------
-			2018.08.25.
+			2018.10.05.
 		------------- -->
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shlproto.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.180918.min.js"></script>
 		<script type="text/javascript">try { 'ABOUT'.shlInfo() } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 180825,
+				'current-ver': 181005,
 				'update-link': "https://re-is.github.io/update/dnf.latest.txt",
 				'msgbox-text': "Új verzió elérhető.\n\nMost frissíted?"
 			});
@@ -112,7 +112,7 @@ Shl update - HTA:
 			});
 
 			// Globális változók:
-			window.g = { smooth: false, dpi: "", font: "", wss: 'HTA'.shlActiveX('WSS') };
+			window.g = { smooth: false, dpi: "", font: "", wss: 'HTA'.shlActiveX('wss') };
 
 			// Simítás pipálása, tiltása:
 			function check_disabled_smoothing() {
