@@ -1,6 +1,6 @@
-Shl update - Latest version: 181005
+Shl update - Latest version: 181021
 
-Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.10.05\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.10.21\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -15,9 +15,9 @@ Shl update - HTA:
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181005,
+				'current-ver': 181021,
 				'update-link': "https://re-is.github.io/update/editor.latest.txt",
-				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.10.05\n\nMost frissíted?"
+				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.10.21\n\nMost frissíted?"
 			});
 		</script>
 		<title>!Menü Szerkesztő</title>
@@ -169,8 +169,9 @@ Shl update - HTA:
 
 					.create_new_folder_disabled {
 						display: inline-block;
-						background-color: #222;
-						color: #999;
+						background-color: #ccc;
+						color: #777;
+						border-radius: 3px;
 						padding: 2px 10px;
 					}
 
@@ -343,7 +344,7 @@ Shl update - HTA:
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2018<br>
 					<!-- Sorozat.hónap.nap -->
-					Verzió: 6.10.05
+					Verzió: 6.10.21
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
