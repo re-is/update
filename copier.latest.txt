@@ -1,5 +1,5 @@
-Shl update - Latest version: 180929
+Shl update - Latest version: 181101
 
-Shl update - Alert text: Új ESET verzió érhető el:   11.2.63.0\nEllenőrizd, hogy az egeret az 'e' betűre viszed, a tálcán.\nHa ezt a számot látod az üzenetben, akkor az 'Igen' után kattints a 'Futtatásra' !\n\nHa nem, akkor majd 'később' frissíted, csak kattints az 'Indításra' !\n\nMegegyezik a két szám?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új ESET verzió érhető el:   12.0.27.0\n\nEllenőrizd, hogy az egeret az 'e' betűre viszed, a tálcán.\nHa ezt a számot látod az üzenetben, akkor az 'Igen' után kattints a 'Futtatásra' !\n\nHa nem, akkor majd 'később' frissíted, csak kattints az 'Indításra' !\n\nMegegyezik a két szám?<END-OF-ALERTTEXT>
 
-Shl update - DDL: https://drive.google.com/uc?export=download&id=111vSIX_dR00cxznYXNrNss4REHsxm2ci
+Shl update - DDL: https://drive.google.com/uc?export=download&id=10D5iQwYmbWQRV79bYdeX3MzYwCQF6645
