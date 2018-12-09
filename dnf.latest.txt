@@ -1,24 +1,24 @@
-Shl update - Latest version: 181005
+Shl update - Latest version: 181209
 
 Shl update - Alert text: Új verzió elérhető.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
 <START-TEXT>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 	<head>
-		<!-- ------------
-			2018.10.05.
-		------------- -->
+		<!--
+			2018.12.09.
+		-->
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.180918.min.js"></script>
-		<script type="text/javascript">try { 'ABOUT'.shlInfo() } catch(e) { alert("Nincs internet kapcsolat!"); window.close(); }
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.min.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()};
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181005,
+				'current-ver': 181209,
 				'update-link': "https://re-is.github.io/update/dnf.latest.txt",
 				'msgbox-text': "Új verzió elérhető.\n\nMost frissíted?"
 			});
@@ -101,14 +101,14 @@ Shl update - HTA:
 		<center><div id="done-button" onclick="setup()">Kész és kijelentkezés</div></center>
 		<script type="text/javascript">
 
-			// HTA ablak indítása:
-			'WND'.shlStart({
+			// HTA ablak beállítása:
+			'WND'.shlSetUp({
 				icon		: 'dnf_icon.ico',
 				type		: 'tool',
 				caption	: true,
 				width		: '260px',
 				height	: '230px',
-				fadein	: 300
+				fadein	: [200, 100]
 			});
 
 			// Globális változók:
@@ -213,7 +213,7 @@ Shl update - HTA:
 					catch(e) {
 						g.wss.RegWrite(a_DnF, 'DPI és Betűtípus', 'REG_SZ');
 						g.wss.RegWrite(a_DnF + 'Position', 'bottom', 'REG_SZ');
-						g.wss.RegWrite(a_DnF + 'Icon', '"' + 'HTA'.shlPathName('folder') + '\\dnf_icon.ico"', 'REG_SZ');
+						g.wss.RegWrite(a_DnF + 'Icon', '"' + 'HTA'.shlPathName('folder') + 'dnf_icon.ico"', 'REG_SZ');
 						g.wss.RegWrite(a_DnF + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
 					}
 					// Adatok írása:
@@ -255,4 +255,5 @@ Shl update - HTA:
 
 		</script>
 	</body>
-</html><END-TEXT>
+</html>
+<END-TEXT>
