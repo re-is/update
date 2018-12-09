@@ -1,4 +1,4 @@
-Shl update - Latest version: 181209
+Shl update - Latest version: 181210
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -15,7 +15,7 @@ Shl update - HTA:
 
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181209,
+				'current-ver': 181210,
 				'update-link': "https://re-is.github.io/update/copier.latest.txt",
 				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
@@ -59,8 +59,8 @@ Shl update - HTA:
 
 					#button {
 						display: none;
-						padding: 6px 20px 8px 20px;
-						font-family: "Verdana";
+						font-family: "Tahoma";
+						padding: 3px 20px;
 						text-shadow: 0 0 0 transparent;
 						letter-spacing: 1px;
 						color: #fff;
@@ -103,7 +103,7 @@ Shl update - HTA:
 			<div id="margin-page">
 				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.09.<br>
 				Készítette: Reich István, 2017<br><br>
-				Kattints az <span>Indítás</span>-ra és <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
+				Indítás után <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
 				<center><div id="button" onclick="start_autoit()">Indítás</div></center>
 				<center><input type="text" id="code-input"></center>
 			</div>
@@ -116,7 +116,7 @@ Shl update - HTA:
 				icon		: 'eset32.ico',
 				type		: 'tool',
 				caption	: false,
-				width		: '500px',
+				width		: '420px',
 				height	: '190px',
 				fadein	: [300, 100]
 			});
