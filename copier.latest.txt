@@ -1,5 +1,185 @@
-Shl update - Latest version: 181101
+Shl update - Latest version: 181209
 
-Shl update - Alert text: Új ESET verzió érhető el:   12.0.27.0\n\nEllenőrizd, hogy az egeret az 'e' betűre viszed, a tálcán.\nHa ezt a számot látod az üzenetben, akkor az 'Igen' után kattints a 'Futtatásra' !\n\nHa nem, akkor majd 'később' frissíted, csak kattints az 'Indításra' !\n\nMegegyezik a két szám?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
-Shl update - DDL: https://drive.google.com/uc?export=download&id=10D5iQwYmbWQRV79bYdeX3MzYwCQF6645
+Shl update - HTA:
+
+<START-TEXT>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.min.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet!\n\nPróbáld később.");window.close()};
+
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 181209,
+				'update-link': "https://re-is.github.io/update/copier.latest.txt",
+				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
+			});
+
+		</script>
+		<title>ESET Kódmásoló</title>
+		<style type="text/css">
+
+			body * {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			#body {
+				position: absolute;
+				overflow: hidden;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background: linear-gradient(to right, #f5f5f5, #fff);
+				border: 1px solid #aaa;
+			}
+
+				#margin-page {
+					position: absolute;
+					top: 20px;
+					left: 20px;
+					bottom: 20px;
+					right: 20px;
+				}
+
+					span {
+						font-family: "Arial";
+						letter-spacing: 0.5px;
+						font-size: 16px;
+						color: #e62;
+						font-weight: bold;
+					}
+
+					#button {
+						display: none;
+						padding: 6px 20px 8px 20px;
+						font-family: "Verdana";
+						text-shadow: 0 0 0 transparent;
+						letter-spacing: 1px;
+						color: #fff;
+						background-color: #999;
+						transition: 0.2s;
+					}
+
+						#button:hover {
+							background-color: #777;
+							cursor: pointer;
+						}
+
+					#code-input {
+						width: 300px;
+						border: 1px solid #aaa;
+						text-align: center;
+						visibility: hidden;
+					}
+
+			#close {
+				position: absolute;
+				display: inline-block;
+				top: -6px;
+				right: 8px;
+				font-size: 30px;
+				padding: 3px 13px;
+				z-index: 100;
+			}
+
+				#close:hover {
+					background-color: #d32;
+					color: #fff;
+					cursor: pointer;
+				}
+
+		</style>
+	</head>
+	<body>
+		<div id="body">
+			<div id="margin-page">
+				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.09.<br>
+				Készítette: Reich István, 2017<br><br>
+				Kattints az <span>Indítás</span>-ra és <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
+				<center><div id="button" onclick="start_autoit()">Indítás</div></center>
+				<center><input type="text" id="code-input"></center>
+			</div>
+		</div>
+		<div id="close" onclick="'WND'.shlCmd('close')">×</div>
+		<script type="text/javascript">
+
+			// HTA ablak beállítása:
+			'WND'.shlSetUp({
+				icon		: 'eset32.ico',
+				type		: 'tool',
+				caption	: false,
+				width		: '500px',
+				height	: '190px',
+				fadein	: [300, 100]
+			});
+
+			// Globális változók:
+			window.g = {
+				pressed : false,
+				dirname : 'HTA'.shlPathName('folder'),
+				regpath : 'HKCR\\DesktopBackground\\Shell\\eset_license\\',
+				newEset : '12.0.31.0'
+			};
+
+			// Az ablak betöltésekor:
+			'WND'.shlOnLoad(function() {
+				// Verzió beírása:
+				'id'.shlElem('new-eset-version').innerHTML = g.newEset;
+
+				var old_version = 0, current_version = 'HTA'.shlGetUpdate('current-ver');
+
+				// Jelenlegi verzió lekérése, ha lehet:
+				try { old_version = parseInt('HTA'.shlActiveX('wss').RegRead(g.regpath + 'Version')) }
+				catch(e) {}
+
+				// Új verzió integrálása a context menübe:
+				if (current_version > old_version) {
+					'HTA'.shlActiveX('wss').RegWrite(g.regpath, 'ESET Kódmásoló', 'REG_SZ');
+					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Version', current_version, 'REG_SZ');
+					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Position', 'middle', 'REG_SZ');
+					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Icon', '"' + g.dirname + 'eset24.ico"', 'REG_SZ');
+					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
+				}
+
+				// Gomb lenyomáskor és kattintáskor megjelenik a kód:
+				window.onkeydown = function() { g.pressed = true }
+				window.onkeyup = function() { g.pressed = false }
+				window.onclick = function() {
+					if (!g.pressed) return;
+					'id'.shlElem('button').style.display = 'none';
+					'id'.shlElem('code-input').style.visibility = 'visible';
+				}
+
+				// Kód lekérése és beírása az input-ba:
+				'HTA'.shlReadWebTextFile('https://raw.githubusercontent.com/re-is/eset/master/serial-code.txt', function(text) {
+					'id'.shlElem('code-input').value = text;
+					'id'.shlElem('button').style.display = 'inline-block';
+				});
+			});
+
+			// Indítás:
+			function start_autoit() {
+				var esetVer = 'HTA'.shlActiveX('wss').RegRead('HKEY_LOCAL_MACHINE\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion');
+				if (esetVer != g.newEset) {
+					'id'.shlElem('margin-page').style.display = 'none';
+					'WND'.shlSetSize(650, 350);
+					'MSG'.shlOk("Még nincs telepítve a legújabb ESET vírusírtó!\n\nÚj verzió: " + g.newEset + "\nJelenlegi: " + esetVer + "\n\nA telepítéshez nyitsd meg az ESET ablakot,\nbal oldali listában a 'Frissítés',\nmajd a jobb-alsó sarokban, 'Frissítések keresése'.\n\nHa kész, akkor 'Védelem állapota' és középen, 'Számítógép újraindítása'.", function() { 'WND'.shlCmd('close') }, "Bezárás");
+					return;
+				}
+				'id'.shlElem('button').style.display = 'none';
+				'id'.shlElem('code-input').style.visibility = 'visible';
+				'HTA'.shlActiveX('wss').Run('"' + g.dirname + 'eset_script.exe"');
+			}
+
+		</script>
+	</body>
+</html>
+<END-TEXT>
