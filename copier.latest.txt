@@ -1,4 +1,4 @@
-Shl update - Latest version: 181210
+Shl update - Latest version: 1
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
