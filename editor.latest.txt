@@ -1,6 +1,6 @@
-Shl update - Latest version: 181209
+Shl update - Latest version: 181213
 
-Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.12.09.\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.12.13\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -10,17 +10,17 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.min.js"></script>
+		<title>!Menü Szerkesztő</title>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.index.js"></script>
 		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()};
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181209,
+				'current-ver': 181213,
 				'update-link': "https://re-is.github.io/update/editor.latest.txt",
-				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.12.09.\n\nMost frissíted?"
+				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.12.13\n\nMost frissíted?"
 			});
 		</script>
-		<title>!Menü Szerkesztő</title>
 		<style type="text/css">
 
 			body * {
@@ -327,7 +327,7 @@ Shl update - HTA:
 			<div id="create_layer">Egy pillanat...</div>
 
 			<!-- Ablak fejléc -->
-			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkesztő</div>
+			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkeszt��</div>
 			<div id="caption_buttons">
 				<div id="minimize_button" onclick="'WND'.shlCmd('min')">_</div>
 				<div id="close_button" onclick="'WND'.shlCmd('close')">X</div>
@@ -343,7 +343,7 @@ Shl update - HTA:
 				<div id="start_page">
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2016<br>
-					Frissítve: 2018.12.09.
+					Frissítve: 2018.12.13
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -397,7 +397,7 @@ Shl update - HTA:
 				type		: 'fixed',
 				caption	: 'caption',
 				width		: '900px',
-				height 	: '655px',
+				height	: '655px',
 				fadein	: [300, 200]
 			});
 
@@ -929,7 +929,7 @@ Shl update - HTA:
 				});
 			}
 
-			// Restore.reg fájl másolása az aztalra
+			// Restore.reg fájl másolása az asztalra
 			function copy_to_desktop() {
 				'id'.shlElem('create_layer').style.display = 'block';
 				'OBJ'.shlCopy(dirname + 'Restore.reg', 'HTA'.shlEnv('%desktop%'));
