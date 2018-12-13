@@ -1,4 +1,4 @@
-Shl update - Latest version: 181210
+Shl update - Latest version: 181213
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -10,18 +10,18 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.min.js"></script>
+		<title>ESET Kódmásoló</title>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.index.js"></script>
 		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet!\n\nPróbáld később.");window.close()};
 
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181210,
+				'current-ver': 181213,
 				'update-link': "https://re-is.github.io/update/copier.latest.txt",
 				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
 
 		</script>
-		<title>ESET Kódmásoló</title>
 		<style type="text/css">
 
 			body * {
@@ -101,7 +101,7 @@ Shl update - HTA:
 	<body>
 		<div id="body">
 			<div id="margin-page">
-				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.09.<br>
+				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.13.<br>
 				Készítette: Reich István, 2017<br><br>
 				Indítás után <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
 				<center><div id="button" onclick="start_autoit()">Indítás</div></center>
@@ -167,7 +167,7 @@ Shl update - HTA:
 
 			// Indítás:
 			function start_autoit() {
-				var esetVer = 'HTA'.shlActiveX('wss').RegRead('HKEY_LOCAL_MACHINE\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion');
+				var esetVer = 'HTA'.shlActiveX('wss').RegRead('HKLM\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion');
 				if (esetVer != g.newEset) {
 					'id'.shlElem('margin-page').style.display = 'none';
 					'WND'.shlSetSize(650, 350);
