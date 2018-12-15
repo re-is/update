@@ -1,4 +1,4 @@
-Shl update - Latest version: 181213
+Shl update - Latest version: 181214
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -10,18 +10,8 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<title>ESET Kódmásoló</title>
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.index.js"></script>
-		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet!\n\nPróbáld később.");window.close()};
-
-			'HTA'.shlSetUpdate({
-				'restart-hta': true,
-				'current-ver': 181213,
-				'update-link': "https://re-is.github.io/update/copier.latest.txt",
-				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
-			});
-
-		</script>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181214.index.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet!\n\nPróbáld később.");window.close()}</script>
 		<style type="text/css">
 
 			body * {
@@ -61,7 +51,7 @@ Shl update - HTA:
 						display: none;
 						font-family: "Tahoma";
 						padding: 3px 20px;
-						text-shadow: 0 0 0 transparent;
+						text-shadow: none;
 						letter-spacing: 1px;
 						color: #fff;
 						background-color: #999;
@@ -86,7 +76,7 @@ Shl update - HTA:
 				top: -6px;
 				right: 8px;
 				font-size: 30px;
-				padding: 3px 13px;
+				padding: 0 10px;
 				z-index: 100;
 			}
 
@@ -101,24 +91,33 @@ Shl update - HTA:
 	<body>
 		<div id="body">
 			<div id="margin-page">
-				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.13.<br>
+				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.14<br>
 				Készítette: Reich István, 2017<br><br>
 				Indítás után <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
-				<center><div id="button" onclick="start_autoit()">Indítás</div></center>
+				<center><div id="button" onclick="start_autoit()">Ind��tás</div></center>
 				<center><input type="text" id="code-input"></center>
 			</div>
 		</div>
 		<div id="close" onclick="'WND'.shlCmd('close')">×</div>
 		<script type="text/javascript">
 
-			// HTA ablak beállítása:
-			'WND'.shlSetUp({
+			// Megnyitás:
+			'WND'.shlOpen({
 				icon		: 'eset32.ico',
+				title		: 'ESET Kódmásoló',
 				type		: 'tool',
 				caption	: false,
 				width		: '420px',
 				height	: '190px',
 				fadein	: [300, 100]
+			});
+
+			// Frissítés:
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 181214,
+				'update-link': "https://re-is.github.io/update/copier.latest.txt",
+				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
 
 			// Globális változók:
