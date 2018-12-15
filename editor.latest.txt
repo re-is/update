@@ -1,6 +1,6 @@
-Shl update - Latest version: 181213
+Shl update - Latest version: 181214
 
-Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.12.13\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2018.12.14\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -10,17 +10,8 @@ Shl update - HTA:
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<title>!Menü Szerkesztő</title>
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.index.js"></script>
-		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()};
-			// Frissítés:
-			'HTA'.shlSetUpdate({
-				'restart-hta': true,
-				'current-ver': 181213,
-				'update-link': "https://re-is.github.io/update/editor.latest.txt",
-				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.12.13\n\nMost frissíted?"
-			});
-		</script>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181214.index.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()}</script>
 		<style type="text/css">
 
 			body * {
@@ -327,7 +318,7 @@ Shl update - HTA:
 			<div id="create_layer">Egy pillanat...</div>
 
 			<!-- Ablak fejléc -->
-			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkeszt��</div>
+			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkesztő</div>
 			<div id="caption_buttons">
 				<div id="minimize_button" onclick="'WND'.shlCmd('min')">_</div>
 				<div id="close_button" onclick="'WND'.shlCmd('close')">X</div>
@@ -343,7 +334,7 @@ Shl update - HTA:
 				<div id="start_page">
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2016<br>
-					Frissítve: 2018.12.13
+					Frissítve: 2018.12.14
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -391,14 +382,23 @@ Shl update - HTA:
 
 		<script type="text/javascript">
 
-			// Ablak indítása:
-			'WND'.shlSetUp({
+			// Megnyitás:
+			'WND'.shlOpen({
 				icon		: 'icons/context.ico',
+				title		: '!Menü Szerkesztő',
 				type		: 'fixed',
 				caption	: 'caption',
 				width		: '900px',
 				height	: '655px',
 				fadein	: [300, 200]
+			});
+
+			// Frissítés:
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 181214,
+				'update-link': "https://re-is.github.io/update/editor.latest.txt",
+				'msgbox-text': "Új verzió jelent meg ezen a napon: 2018.12.14\n\nMost frissíted?"
 			});
 
 			var cap = 'id'.shlElem('caption');
