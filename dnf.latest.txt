@@ -1,4 +1,4 @@
-Shl update - Latest version: 181213
+Shl update - Latest version: 181214
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -9,21 +9,12 @@ Shl update - HTA:
 <html>
 	<head>
 		<!--
-			2018.12.13.
+			2018.12.14
 		-->
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<title>DPI és Betűtípus</title>
-		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181125.index.js"></script>
-		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()};
-			// Frissítés:
-			'HTA'.shlSetUpdate({
-				'restart-hta': true,
-				'current-ver': 181213,
-				'update-link': "https://re-is.github.io/update/dnf.latest.txt",
-				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
-			});
-		</script>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.181214.index.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()}</script>
 		<style type="text/css">
 
 			body * {
@@ -33,7 +24,6 @@ Shl update - HTA:
 			}
 
 			body {
-				margin: 0;
 				height: 248px;
 				background-color: #eee;
 				border-top: 1px solid #aaa;
@@ -101,13 +91,22 @@ Shl update - HTA:
 		<center><div id="done-button" onclick="setup()">Kész és kijelentkezés</div></center>
 		<script type="text/javascript">
 
-			// HTA ablak beállítása:
-			'WND'.shlSetUp({
+			// Megnyitás:
+			'WND'.shlOpen({
 				icon		: 'dnf_icon.ico',
+				title		: 'DPI és Betűtípus',
 				type		: 'tool',
 				caption	: true,
 				width		: '260px',
 				height	: '230px'
+			});
+
+			// Frissítés:
+			'HTA'.shlSetUpdate({
+				'restart-hta': true,
+				'current-ver': 181214,
+				'update-link': "https://re-is.github.io/update/dnf.latest.txt",
+				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
 
 			// Globális változók:
