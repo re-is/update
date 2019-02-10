@@ -1,4 +1,4 @@
-Shl update - Latest version: 181214
+Shl update - Latest version: 190210
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -9,7 +9,7 @@ Shl update - HTA:
 <html>
 	<head>
 		<!--
-			2018.12.14
+			2019.02.10
 		-->
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
@@ -98,13 +98,14 @@ Shl update - HTA:
 				type		: 'tool',
 				caption	: true,
 				width		: '260px',
-				height	: '230px'
+				height	: '230px',
+				lang		: 'HU'
 			});
 
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181214,
+				'current-ver': 190210,
 				'update-link': "https://re-is.github.io/update/dnf.latest.txt",
 				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
