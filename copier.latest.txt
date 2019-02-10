@@ -1,4 +1,4 @@
-Shl update - Latest version: 181214
+Shl update - Latest version: 190210
 
 Shl update - Alert text: Új verzió érhető el.\n\nMost frissíted?<END-OF-ALERTTEXT>
 
@@ -47,6 +47,10 @@ Shl update - HTA:
 						font-weight: bold;
 					}
 
+					#info {
+						margin: 10px 0;
+					}
+
 					#button {
 						display: none;
 						font-family: "Tahoma";
@@ -63,11 +67,17 @@ Shl update - HTA:
 							cursor: pointer;
 						}
 
+					#code-center {
+						position: absolute;
+						width: 100%;
+						bottom: 10px;
+					}
+
 					#code-input {
 						width: 300px;
 						border: 1px solid #aaa;
 						text-align: center;
-						visibility: hidden;
+						display: none;
 					}
 
 			#close {
@@ -91,11 +101,11 @@ Shl update - HTA:
 	<body>
 		<div id="body">
 			<div id="margin-page">
-				ESET <span id="new-eset-version"></span> Kódmásoló, 2018.12.14<br>
+				ESET <span id="new-eset-version"></span> Kódmásoló, 2019.02.10<br>
 				Készítette: Reich István, 2017<br><br>
-				Indítás után <span>ne nyúlj a géphez</span>, amíg nem végez !<br><br>
-				<center><div id="button" onclick="start_autoit()">Ind��tás</div></center>
-				<center><input type="text" id="code-input"></center>
+				<center id="info">Indítás után <span>ne nyúlj a géphez</span>, amíg nem végez !</center>
+				<center><div id="button" onclick="start_autoit()">Indítás</div></center>
+				<center id="code-center"><input type="text" id="code-input"></center>
 			</div>
 		</div>
 		<div id="close" onclick="'WND'.shlCmd('close')">×</div>
@@ -109,19 +119,21 @@ Shl update - HTA:
 				caption	: false,
 				width		: '420px',
 				height	: '190px',
+				lang		: 'HU',
 				fadein	: [300, 100]
 			});
 
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 181214,
+				'current-ver': 190210,
 				'update-link': "https://re-is.github.io/update/copier.latest.txt",
 				'msgbox-text': "Új verzió érhető el.\n\nMost frissíted?"
 			});
 
 			// Globális változók:
 			window.g = {
+				wscript : 'HTA'.shlActiveX('wss'),
 				pressed : false,
 				dirname : 'HTA'.shlPathName('folder'),
 				regpath : 'HKCR\\DesktopBackground\\Shell\\eset_license\\',
@@ -136,25 +148,15 @@ Shl update - HTA:
 				var old_version = 0, current_version = 'HTA'.shlGetUpdate('current-ver');
 
 				// Jelenlegi verzió lekérése, ha lehet:
-				try { old_version = parseInt('HTA'.shlActiveX('wss').RegRead(g.regpath + 'Version')) }
-				catch(e) {}
+				try { old_version = parseInt(g.wscript.RegRead(g.regpath + 'Version')) }catch(e){}
 
 				// Új verzió integrálása a context menübe:
 				if (current_version > old_version) {
-					'HTA'.shlActiveX('wss').RegWrite(g.regpath, 'ESET Kódmásoló', 'REG_SZ');
-					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Version', current_version, 'REG_SZ');
-					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Position', 'middle', 'REG_SZ');
-					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'Icon', '"' + g.dirname + 'eset24.ico"', 'REG_SZ');
-					'HTA'.shlActiveX('wss').RegWrite(g.regpath + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
-				}
-
-				// Gomb lenyomáskor és kattintáskor megjelenik a kód:
-				window.onkeydown = function() { g.pressed = true }
-				window.onkeyup = function() { g.pressed = false }
-				window.onclick = function() {
-					if (!g.pressed) return;
-					'id'.shlElem('button').style.display = 'none';
-					'id'.shlElem('code-input').style.visibility = 'visible';
+					g.wscript.RegWrite(g.regpath, 'ESET Kódmásoló', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Version', current_version, 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Position', 'middle', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Icon', '"' + g.dirname + 'eset24.ico"', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
 				}
 
 				// Kód lekérése és beírása az input-ba:
@@ -162,20 +164,46 @@ Shl update - HTA:
 					'id'.shlElem('code-input').value = text;
 					'id'.shlElem('button').style.display = 'inline-block';
 				});
+
+				// Gomb lenyomáskor és kattintáskor megjelenik a kód:
+				window.onkeydown = function() { g.pressed = true }
+				window.onkeyup = function() { g.pressed = false }
+				window.onclick = function() {
+					if (!g.pressed) return;
+					'id'.shlElem('button').style.display = 'none';
+					'id'.shlElem('code-input').style.display = 'inline-block';
+				}
 			});
 
 			// Indítás:
 			function start_autoit() {
-				var esetVer = 'HTA'.shlActiveX('wss').RegRead('HKLM\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion');
+				var esetVer = g.wscript.RegRead('HKLM\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion'), copy_state = '';
+				// Verzió ellenőrzés:
 				if (esetVer != g.newEset) {
 					'id'.shlElem('margin-page').style.display = 'none';
 					'WND'.shlSetSize(650, 350);
-					'MSG'.shlOk("Még nincs telepítve a legújabb ESET vírusírtó!\n\nÚj verzió: " + g.newEset + "\nJelenlegi: " + esetVer + "\n\nA telepítéshez nyitsd meg az ESET ablakot,\nbal oldali listában a 'Frissítés',\nmajd a jobb-alsó sarokban, 'Frissítések keresése'.\n\nHa kész, akkor 'Védelem állapota' és középen, 'Számítógép újraindítása'.", function() { 'WND'.shlCmd('close') }, "Bezárás");
+					'MSG'.shlOk("Még nincs telepítve a legújabb ESET vírus��rtó!\n\nÚj verzió: " + g.newEset + "\nJelenlegi: " + esetVer + "\n\nA telepítéshez nyitsd meg az ESET ablakot,\nbal oldali listában a 'Frissítés',\nmajd a jobb-alsó sarokban, 'Frissítések keresése'.\n\nHa kész, akkor 'Védelem állapota' és középen, 'Számítógép újraindítása'.", function() { 'WND'.shlCmd('close') }, "Bezárás");
 					return;
 				}
+				'id'.shlElem('info').innerHTML = 'Másoló szkript indítása...';
 				'id'.shlElem('button').style.display = 'none';
-				'id'.shlElem('code-input').style.visibility = 'visible';
-				'HTA'.shlActiveX('wss').Run('"' + g.dirname + 'eset_script.exe"');
+				'id'.shlElem('code-input').style.display = 'inline-block';
+				g.wscript.Run('"' + g.dirname + 'script.exe"');
+				'WND'.shlOnFrame(function(frame) {
+					if (frame % 30 != 0) return;
+					try {
+						copy_state = g.wscript.RegRead('HKCU\\Software\\IsRe Setups\\ESET Copier - State');
+						g.wscript.RegDelete('HKCU\\Software\\IsRe Setups\\ESET Copier - State');
+					} catch(e) {}
+
+					// Kód elrejtés:
+					if (copy_state.shlContains('Started') && ('id'.shlElem('code-input').style.display != 'none')) 'id'.shlElem('code-input').style.display = 'none';
+					// Info beírása:
+					if (copy_state.shlContains(/Successful|Error/) && !'id'.shlElem('info').innerHTML.shlContains('Kész')) {
+						setTimeout(function() { 'WND'.shlCmd('close') }, 4000);
+						'id'.shlElem('info').innerHTML = ((copy_state == 'Successful') ? 'Kész a másolás!' : 'Érvénytelen a kód! Szóljatok, hogy frissítsem! :-D');
+					}
+				});
 			}
 
 		</script>
