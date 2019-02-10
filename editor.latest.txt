@@ -1,6 +1,6 @@
-Shl update - Latest version: 190102
+Shl update - Latest version: 190210
 
-Shl update - Alert text: Új verzió jelent meg ezen a napon: 2019.01.02\n\nMost frissíted?<END-OF-ALERTTEXT>
+Shl update - Alert text: Új verzió jelent meg ezen a napon: 2019.02.10\n\nMost frissíted?<END-OF-ALERTTEXT>
 
 Shl update - HTA:
 
@@ -335,7 +335,7 @@ Shl update - HTA:
 				<div id="start_page">
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2016<br>
-					Frissítve: 2019.01.02
+					Frissítve: 2019.02.10
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -391,15 +391,16 @@ Shl update - HTA:
 				caption	: 'caption',
 				width		: '900px',
 				height	: '655px',
+				lang		: 'HU',
 				fadein	: [300, 200]
 			});
 
 			// Frissítés:
 			'HTA'.shlSetUpdate({
 				'restart-hta': true,
-				'current-ver': 190102,
+				'current-ver': 190210,
 				'update-link': "https://re-is.github.io/update/editor.latest.txt",
-				'msgbox-text': "Új verzió jelent meg ezen a napon: 2019.01.02\n\nMost frissíted?"
+				'msgbox-text': "Új verzió jelent meg ezen a napon: 2019.02.10\n\nMost frissíted?"
 			});
 
 			var cap = 'id'.shlElem('caption');
