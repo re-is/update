@@ -1,5 +1,5 @@
-Shl update - Latest version: 190215
+Shl update - Latest version: 190216
 
 Shl update - Alert text: Új verzió érhető el.\n\nHa most frissíted, klikk a 'Futtatásra'.<END-OF-ALERTTEXT>
 
-Shl update - DDL: https://drive.google.com/uc?export=download&id=1azYnCCOsSBb_SEwKzsEHyaT7zC0Rc1mI
+Shl update - DDL: https://drive.google.com/uc?export=download&id=12J1X3wGAozO4YWadlOAKUIDaMjAFseM-
