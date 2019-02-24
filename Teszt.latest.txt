@@ -3,64 +3,16 @@
 +---------------------------------+
 
 [SHL] - latest version: 5.0;
-[SHL] - notification message: Helló szia!
+[SHL] - notification message:
+Heli te genyó
 
-kiszopod te!;
+
+lassú vagy!
+[SHL] - end of message;
 [SHL] - direct download link: aaaaa_.com;
 [SHL] - downloaded file ext: .exe;
 [SHL] - open web page: www.anyad.com;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
-<!DOCTYPE html>
-<html>
-	<head>
-		<!-- Szükséges META tag-ek -->
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=11">
-		<meta http-equiv="MSThemeCompatible" content="Yes">
-		<!-- Super HTA Library betöltése -->
-		<script type="text/javascript" src="shl.190224.js"></script>
-		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()}</script>
-		<!-- CSS -->
-		<style type="text/css">
-
-			body * {
-				font-family: "Calibri Light";
-				font-size: 18px;
-				color: #333;
-			}
-
-			#body {
-				position: absolute;
-				overflow: auto;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background-color: #222;
-			}
-
-		</style>
-	</head>
-	<body>
-		<div id="body">
-		</div>
-		<script type="text/javascript">
-
-			// Megnyitás:
-			'WND'.shlOpen({
-				icon		: 'https://re-is.github.io/shl/setup.ico',
-				title		: 'Update',
-				type		: 'tool',
-				caption	: true,
-				width		: '500px',
-				height	: '300px'
-			});
-
-			'HTA'.shlUpdate(5.0, 'https://raw.githubusercontent.com/re-is/update/master/Teszt.latest.txt');
-
-		</script>
-	</body>
-</html>
-
+---
 [SHL] - end of hta text;
