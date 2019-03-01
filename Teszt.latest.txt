@@ -11,7 +11,7 @@ Most frissíted?
 [SHL] - direct download link: https://drive.google.com/uc?export=download&id=1Cf5IrGYOf1JZtdFoTMZQ1cO-YOj2OSWD;
 [SHL] - downloaded file ext: .exe;
 [SHL] - open web page: ;
-[SHL] - hta file re-open: false;
+[SHL] - hta file re-open: true;
 [SHL] - text of hta file:
 
 [SHL] - end of hta text;
