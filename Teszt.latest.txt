@@ -4,13 +4,11 @@
 
 [SHL] - latest version: 5.0;
 [SHL] - notification message:
-áéááépp
-
-oééoéo jkkhjkjhkhjk  kkjkhjkhjjkjh fgdggd fgdgdfggfdgdgd fgdgdfgfd?
+Most frissíted?
 [SHL] - end of message;
-[SHL] - direct download link: aaaaa_.com;
+[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1VSw36NJq3tma7gPZtyrkjZm7EDsMzXob;
 [SHL] - downloaded file ext: .exe;
-[SHL] - open web page: www.anyad.com;
+[SHL] - open web page: ;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
 
