@@ -2,13 +2,13 @@
 |  Super HTA Library update file  |
 +---------------------------------+
 
-[SHL] - latest version: 5.0;
+[SHL] - latest version: 5.1;
 [SHL] - notification message:
-Új verzió érhető el!
+Új verzió érhető el: 5.1
 
 Most frissíted?
 [SHL] - end of message;
-[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1cZ9t11ydKXMaNnnIhon7aU6bnkEDzGnR;
+[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1Cf5IrGYOf1JZtdFoTMZQ1cO-YOj2OSWD;
 [SHL] - downloaded file ext: .exe;
 [SHL] - open web page: ;
 [SHL] - hta file re-open: false;
