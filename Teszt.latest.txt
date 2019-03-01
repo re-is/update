@@ -2,13 +2,13 @@
 |  Super HTA Library update file  |
 +---------------------------------+
 
-[SHL] - latest version: 4.9;
+[SHL] - latest version: 4.8;
 [SHL] - notification message:
 Most frissíted?
 [SHL] - end of message;
 [SHL] - direct download link: https://drive.google.com/uc?export=download&id=1cZ9t11ydKXMaNnnIhon7aU6bnkEDzGnR;
 [SHL] - downloaded file ext: .exe;
-[SHL] - open web page: ;
+[SHL] - open web page: https://www.google.hu/;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
 
