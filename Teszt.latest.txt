@@ -2,11 +2,11 @@
 |  Super HTA Library update file  |
 +---------------------------------+
 
-[SHL] - latest version: 5.0;
+[SHL] - latest version: 4.9;
 [SHL] - notification message:
 Most frissíted?
 [SHL] - end of message;
-[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1VSw36NJq3tma7gPZtyrkjZm7EDsMzXob;
+[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1cZ9t11ydKXMaNnnIhon7aU6bnkEDzGnR;
 [SHL] - downloaded file ext: .exe;
 [SHL] - open web page: ;
 [SHL] - hta file re-open: true;
