@@ -13,7 +13,7 @@ Most frissíted?
 [SHL] - direct download link: ;
 [SHL] - downloaded file ext: .exe;
 [SHL] - open web page: ;
-[SHL] - hta file re-open: false;
+[SHL] - hta file re-open: true;
 [SHL] - text of hta file:
 <!DOCTYPE html>
 <html>
