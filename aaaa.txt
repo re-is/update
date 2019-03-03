@@ -22,7 +22,7 @@ Update Now?
 		<meta http-equiv="X-UA-Compatible" content="IE=11">
 		<meta http-equiv="MSThemeCompatible" content="Yes">
 		<!-- Super HTA Library betöltése -->
-		<script type="text/javascript" src="shl.190301.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.190301.index.js"></script>
 		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()}</script>
 		<!-- CSS -->
 		<style type="text/css">
@@ -57,7 +57,8 @@ Update Now?
 				type		: 'tool',
 				caption	: true,
 				width		: 500,
-				height	: 500
+				height	: 500,
+				hun		: true
 			});
 
 			'HTA'.shlUpdate(0.9, 'https://raw.githubusercontent.com/re-is/update/master/aaaa.txt');
