@@ -61,7 +61,7 @@ Update Now?
 				hun		: true
 			});
 
-			'HTA'.shlUpdate(0.9, 'https://raw.githubusercontent.com/re-is/update/master/aaaa.txt');
+			'HTA'.shlUpdate(1, 'https://raw.githubusercontent.com/re-is/update/master/aaaa.txt');
 
 		</script>
 	</body>
