@@ -2,21 +2,10 @@
 |  Super HTA Library update file  |
 +---------------------------------+
 
-[SHL] - latest version: 1.1;
+[SHL] - latest version: 1.0;
 [SHL] - notification message:
-New version is available! kljklj
-hfhf
-fghfg
+New version is available!
 
-
-ghfhgf
-gfhf
-fgh
-gf
-gf
-
-ghfhgfhf
-ghfghgf
 
 Update Now?
 [SHL] - end of message;
@@ -25,5 +14,55 @@ Update Now?
 [SHL] - open web page: ;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Szükséges META tag-ek -->
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<meta http-equiv="MSThemeCompatible" content="Yes">
+		<!-- Super HTA Library betöltése -->
+		<script type="text/javascript" src="shl.190301.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet kapcsolat!");window.close()}</script>
+		<!-- CSS -->
+		<style type="text/css">
 
+			body * {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			#body {
+				position: absolute;
+				overflow: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: #eee;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="body">
+		</div>
+		<script type="text/javascript">
+
+			// Megnyitás:
+			'WND'.shlOpen({
+				icon		: 'https://re-is.github.io/shl/setup.ico',
+				title		: 'True Caption',
+				type		: 'tool',
+				caption	: true,
+				width		: 500,
+				height	: 500
+			});
+
+			'HTA'.shlUpdate(0.9, 'https://raw.githubusercontent.com/re-is/update/master/aaaa.txt');
+
+		</script>
+	</body>
+</html>
 [SHL] - end of hta text;
