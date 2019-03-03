@@ -2,14 +2,16 @@
 |  Super HTA Library update file  |
 +---------------------------------+
 
-[SHL] - latest version: 1.0;
+[SHL] - latest version: 1.1;
 [SHL] - notification message:
+New version is available!
 
+Update Now?
 [SHL] - end of message;
 [SHL] - direct download link: ;
 [SHL] - downloaded file ext: ;
 [SHL] - open web page: ;
-[SHL] - hta file re-open: false;
+[SHL] - hta file re-open: true;
 [SHL] - text of hta file:
 
 [SHL] - end of hta text;
