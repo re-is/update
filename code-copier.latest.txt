@@ -2,7 +2,7 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 190304;
+[SHL] - latest version: 190305;
 [SHL] - notification message:
 
 [SHL] - end of message;
