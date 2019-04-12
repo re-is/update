@@ -2,16 +2,202 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 190310.0;
+[SHL] - latest version: 190412.0;
 [SHL] - notification message:
 Új Kódmásoló kell az új ESET-hez!
 
 Most frissíted?
 [SHL] - end of message;
-[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1cIqH8tyYqLrto_txR_Wqm4hGxLP8Jnkl;
-[SHL] - downloaded file ext: .exe;
+[SHL] - direct download link: ;
+[SHL] - downloaded file ext: ;
 [SHL] - open web page: ;
 [SHL] - hta file re-open: true;
 [SHL] - text of hta file:
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=11">
+		<script type="text/javascript" src="https://rawgit.com/re-is/shl/master/shl.190301.index.js"></script>
+		<script type="text/javascript">try{'HTA'.shlInfo()}catch(e){alert("Nincs internet!\n\nPróbáld később.");window.close()}</script>
+		<style type="text/css">
 
+			body * {
+				font-family: "Calibri Light";
+				font-size: 18px;
+				color: #333;
+			}
+
+			#body {
+				position: absolute;
+				overflow: hidden;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background-color: #fff;
+			}
+
+				#margin-page {
+					position: absolute;
+					top: 20px;
+					left: 20px;
+					bottom: 20px;
+					right: 20px;
+				}
+
+					span {
+						font-family: "Arial";
+						letter-spacing: 0.5px;
+						font-size: 16px;
+						color: #f80;
+						font-weight: bold;
+					}
+
+					#info {
+						margin-top: 10px;
+					}
+
+					#button {
+						display: none;
+						padding: 3px 20px;
+						text-shadow: none;
+						font-size: 20px;
+						background-color: #ddd;
+						transition: 0.2s;
+					}	#button:hover {
+							background-color: #777;
+							color: #fff;
+							cursor: pointer;
+						}
+
+					#code-input {
+						width: 300px;
+						border: none;
+						text-align: center;
+						display: none;
+						background-color: #ddd;
+					}
+
+		</style>
+	</head>
+	<body>
+		<div id="body">
+			<div id="margin-page">
+				Frissítve: 2019.04.12<br><br>
+				<center id="info">Megszakításhoz nyomd a bal-alsó <span>Ctrl</span> gombot !</center><br>
+				<center>
+					<div id="button" onclick="start_autoit()">Indítás</div>
+					<input type="text" id="code-input">
+				</center>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			// Globális változók:
+			window.g = {
+				version : 'HTA'.shlUpdate(190412, 'https://raw.githubusercontent.com/re-is/update/master/code-copier.latest.txt')[0],
+				wscript : 'HTA'.shlActiveX('wss'),
+				pressed : false,
+				cltimer : 0,
+				dirname : 'HTA'.shlPathName('folder'),
+				regpath : 'HKCR\\DesktopBackground\\Shell\\eset_license\\',
+				copy : '12.1.34.0',
+				eset : 'HTA'.shlActiveX('wss').RegRead('HKLM\\SOFTWARE\\ESET\\ESET Security\\CurrentVersion\\Info\\ProductVersion')
+			};
+
+			// Megnyitás:
+			'WND'.shlOpen({
+				icon		: g.dirname + 'eset32.ico',
+				title		: 'Kódmásoló - ' + g.copy,
+				type		: 'tool',
+				caption	: true,
+				width		: 420,
+				height	: 180,
+				hun		: true
+			});
+
+			// Az ablak betöltésekor:
+			'WND'.shlOnLoad(function() {
+				var old_version = 0, current_version = g.version;
+
+				// Jelenlegi verzió lekérése, ha lehet:
+				try { old_version = parseInt(g.wscript.RegRead(g.regpath + 'Version')) }catch(e){}
+
+				// Új verzió integrálása a context menübe:
+				if (current_version > old_version) {
+					g.wscript.RegWrite(g.regpath, 'Kódmásoló', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Version', current_version, 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Position', 'middle', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'Icon', '"' + g.dirname + 'eset24.ico"', 'REG_SZ');
+					g.wscript.RegWrite(g.regpath + 'command\\', 'mshta.exe "' + 'HTA'.shlPathName('full') + '"', 'REG_SZ');
+				}
+
+				// Kód lekérése és beírása az input-ba:
+				'HTA'.shlReadWebTextFile('https://raw.githubusercontent.com/re-is/eset/master/serial-code.txt', function(text) {
+					'id'.shlElem('code-input').value = text;
+					'id'.shlElem('button').style.display = 'inline-block';
+				});
+
+				// Gomb lenyomáskor és kattintáskor megjelenik a kód:
+				window.onkeydown = function() { g.pressed = true }
+				window.onkeyup = function() { g.pressed = false }
+				window.onclick = function() {
+					if (!g.pressed) return;
+					'id'.shlElem('button').style.display = 'none';
+					'id'.shlElem('code-input').style.display = 'inline-block';
+				}
+			});
+
+			// Indítás:
+			function start_autoit() {
+				var copy_state = '', copierVer = parseInt(g.copy.replace(/\./g, '')), esetVer = parseInt(g.eset.replace(/\./g, ''));
+				// Verzió ellenőrzés:
+				if (esetVer != copierVer) {
+					var new_eset = (esetVer > copierVer);
+					'id'.shlElem('margin-page').style.display = 'none';
+					'MSG'.shlOk("A Kódmásoló- és vírusírtó verziók nem egyeznek!\n\nMásoló:\t\t" + g.copy + (new_eset ? "" : "  (Újabb)") + "\nVírusírtó:\t" + g.eset + (new_eset ? "  (Újabb)" : ""), function() { 'WND'.shlCmd('close') }, "Bezárás");
+					return;
+				}
+
+				// Beállítások és futtatás:
+				'id'.shlElem('info').innerHTML = 'Másoló szkript indítása...';
+				'id'.shlElem('button').style.display = 'none';
+				'id'.shlElem('code-input').style.display = 'inline-block';
+				g.wscript.Run('"' + g.dirname + 'script.exe"');
+
+				// Indításkor adattörlés:
+				try { g.wscript.RegDelete('HKCU\\Software\\IsRe Setups\\ESET Copier - State') } catch(e) {}
+
+				// Observer:
+				'WND'.shlOnFrame(function(frame) {
+					if (frame % 10 != 0) return;
+					copy_state = '';
+					// Registry olvasása:
+					try { copy_state = g.wscript.RegRead('HKCU\\Software\\IsRe Setups\\ESET Copier - State') } catch(e) {}
+					// Kód elrejtés:
+					if (copy_state.shlContains('Started') && ('id'.shlElem('code-input').style.display != 'none')) {
+						'id'.shlElem('code-input').style.display = 'none';
+						g.wscript.RegDelete('HKCU\\Software\\IsRe Setups\\ESET Copier - State');
+					}
+					if (g.cltimer == 0) {
+						// Info beírása:
+						if (copy_state.shlContains(/Successful|Error/)) {
+							'id'.shlElem('info').innerHTML = ((copy_state == 'Successful') ? 'Kész a másolás!' : 'Érvénytelen a kód! Szóljatok, hogy frissítsem!');
+							g.cltimer = setTimeout(function() { 'WND'.shlCmd('close') }, 3000);
+							g.wscript.RegDelete('HKCU\\Software\\IsRe Setups\\ESET Copier - State');
+						}
+						// KillAll:
+						if (copy_state.shlContains('KillAll')) {
+							'id'.shlElem('info').innerHTML = 'Megszakítottad a folyamatot!';
+							g.cltimer = setTimeout(function() { 'WND'.shlCmd('close') }, 3000);
+							g.wscript.RegDelete('HKCU\\Software\\IsRe Setups\\ESET Copier - State');
+						}
+					}
+				});
+			}
+
+		</script>
+	</body>
+</html>
 [SHL] - end of hta text;
