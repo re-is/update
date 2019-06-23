@@ -2,16 +2,5 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 190623.0;
-[SHL] - notification message:
-Új Kódmásoló érhető el.
-
-Most frissíted?
-[SHL] - end of message;
-[SHL] - direct download link: https://drive.google.com/uc?export=download&id=1QDSOyXbmmVT8kz2FdyH6Lw2y2RPD4KBe;
-[SHL] - downloaded file ext: .exe;
-[SHL] - open web page: ;
-[SHL] - hta file re-open: false;
-[SHL] - text of hta file:
-
-[SHL] - end of hta text;
+'190623.0'
+'https://drive.google.com/uc?export=download&id=1QDSOyXbmmVT8kz2FdyH6Lw2y2RPD4KBe'
