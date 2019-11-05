@@ -2,9 +2,9 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 190311.0;
+[SHL] - latest version: 191105.0;
 [SHL] - notification message:
-Új verzió jelent meg ezen a napon: 2019.03.11
+Új verzió jelent meg ezen a napon: 2019.11.05
 
 Most frissíted?
 [SHL] - end of message;
@@ -89,20 +89,19 @@ Most frissíted?
 
 			#caption_buttons {
 				position: absolute;
-				top: 0;
+				top: -1px;
 				right: 0;
 			}
 
 				#caption_buttons div {
 					display: inline-block;
-					height: 34px;
+					height: 35px;
 					float: left;
-					line-height: 34px;
+					line-height: 32px;
 					padding: 0 16px;
 					color: #DDD;
-					font-family: "Verdana";
-					font-weight: bold;
-					font-size: 16px;
+					text-shadow: 0 0 0 transparent;
+					font-size: 30px;
 					transition: 0.1s;
 				}
 
@@ -315,11 +314,6 @@ Most frissíted?
 				z-index: 1000;
 			}
 
-			.shl-touch-circle {
-				border: none;
-				background-color: #fff;
-			}
-
 		</style>
 	</head>
 	<body>
@@ -329,8 +323,8 @@ Most frissíted?
 			<!-- Ablak fejléc -->
 			<div id="caption"><img src="icons\\context.ico" id="app_icon">Menü Szerkesztő</div>
 			<div id="caption_buttons">
-				<div id="minimize_button" onclick="'WND'.shlCmd('min')">_</div>
-				<div id="close_button" onclick="'WND'.shlCmd('close')">X</div>
+				<div id="minimize_button" onclick="'WND'.shlCmd('min')">-</div>
+				<div id="close_button" onclick="'WND'.shlCmd('close')">×</div>
 			</div>
 
 			<!-- Margós lap
@@ -343,7 +337,7 @@ Most frissíted?
 				<div id="start_page">
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2016<br>
-					Frissítve: 2019.03.11
+					Frissítve: 2019.11.05
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -404,7 +398,7 @@ Most frissíted?
 			});
 
 			// Frissítés:
-			'HTA'.shlUpdate(190311, 'https://raw.githubusercontent.com/re-is/update/master/editor.latest.txt');
+			'HTA'.shlUpdate(191105, 'https://raw.githubusercontent.com/re-is/update/master/editor.latest.txt');
 
 			var cap = 'id'.shlElem('caption');
 			var dirname = 'HTA'.shlPathName('folder');
@@ -825,7 +819,7 @@ Most frissíted?
 					// Csak a fájl:
 					file = link.split(/\\\\/g).pop();
 					// Csak a mappa:
-					folder = link.replace("\\\\" + file, "");
+					folder = link.replace(file, "");
 					// Kiterjesztés:
 					ext = file.split(/\./g).pop();
 					// Ikonok:
@@ -847,7 +841,7 @@ Most frissíted?
 						reg_text += '"CommandFlags"=dword:00000020\r\n';
 					}
 					reg_text += '\r\n[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + '\\command]\r\n';
-					reg_text += '@="cmd.exe /c cd /d \\"' + folder + '\\" && start \\"\\" \\"' + file + '\\"' + command.replace(/\"/g, '\\"') + '"\r\n';
+					reg_text += '@="\\"' + folder + file + '\\"' + command + '"\r\n';
 				}
 				return reg_text;
 			}
