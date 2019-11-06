@@ -2,9 +2,9 @@
 |  Update file                   |
 +--------------------------------+
 
-[SHL] - latest version: 191105.0;
+[SHL] - latest version: 191106.0;
 [SHL] - notification message:
-Új verzió jelent meg ezen a napon: 2019.11.05
+Új verzió jelent meg ezen a napon: 2019.11.06
 
 Most frissíted?
 [SHL] - end of message;
@@ -337,7 +337,7 @@ Most frissíted?
 				<div id="start_page">
 					<!-- About a bal felső sarokban -->
 					Készítette: Reich István, 2016<br>
-					Frissítve: 2019.11.05
+					Frissítve: 2019.11.06
 					<!-- Mappa választó -->
 					<div id="folder_selector"></div>
 					<div id="folder_methods">
@@ -398,7 +398,7 @@ Most frissíted?
 			});
 
 			// Frissítés:
-			'HTA'.shlUpdate(191105, 'https://raw.githubusercontent.com/re-is/update/master/editor.latest.txt');
+			'HTA'.shlUpdate(191106, 'https://raw.githubusercontent.com/re-is/update/master/editor.latest.txt');
 
 			var cap = 'id'.shlElem('caption');
 			var dirname = 'HTA'.shlPathName('folder');
@@ -410,7 +410,7 @@ Most frissíted?
 
 			// Újratöltés:
 			function document_reload() {
-				// Mappa választóba integrálás:
+				// Mappa v��lasztóba integrálás:
 				'id'.shlElem('folder_selector').innerHTML = '<div class="folder_buttons"><div class="button-true" onclick="selected_folder(\'0\')" id="create_new_folder">Új mappa készítése</div></div><br>';
 				// Elemek láthatósága:
 				'id'.shlElem('create_layer').style.display = 'none';
@@ -812,7 +812,7 @@ Most frissíted?
 				if (folder_name == "///clean_up///") {
 					return '\r\n[-HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + ']\r\n';
 				}
-				var reg_text = '';
+				var reg_text = '', bin = false;
 				if (link != "") {
 					// A \ jelek duplázása a linkben:
 					link = link.replace(/\\/g, "\\\\");
@@ -828,20 +828,23 @@ Most frissíted?
 					reg_text += '\r\n[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + ']\r\n';
 					reg_text += '@="' + name + '"\r\n';
 					// Ikonok
-					// exe:
-					if (ext == "exe") reg_text += '"Icon"="\\"' + link + '\\""\r\n';
-					// Audio:
-					if ("mp3 wma wav flac aac m4a ogg".shlContains(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\music.ico\\""\r\n';
-					// Video:
-					if ("avi mp4 mov 3gp flv mkv wmv".shlContains(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\play.ico\\""\r\n';
-					// Szöveg:
-					if ("bat cmd txt reg hta ini vbs rb log".shlContains(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\text.ico\\""\r\n';
-					// Elválasztó:
-					if (sep == "true") {
-						reg_text += '"CommandFlags"=dword:00000020\r\n';
+					// exe, bat, cmd:
+					if (ext.shlContains(/exe|bat|cmd/)) {
+						reg_text += ((ext == "exe") ? ('"Icon"="\\"' + link + '\\""\r\n') : ('"Icon"="\\"' + icons_folder + '\\\\text.ico\\""\r\n'));
+						bin = true;
 					}
+					// Audio:
+					else if ("mp3 wma wav flac aac m4a ogg".shlContains(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\music.ico\\""\r\n';
+					// Video:
+					else if ("avi mp4 mov 3gp flv mkv wmv".shlContains(ext)) reg_text += '"Icon"="\\"' + icons_folder + '\\\\play.ico\\""\r\n';
+					// Szöveg:
+					else reg_text += '"Icon"="\\"' + icons_folder + '\\\\text.ico\\""\r\n';
+					// Elválasztó:
+					if (sep == "true") reg_text += '"CommandFlags"=dword:00000020\r\n';
+					// Command:
 					reg_text += '\r\n[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CommandStore\\shell\\' + folder_id + '_' + file_index + '\\command]\r\n';
-					reg_text += '@="\\"' + folder + file + '\\"' + command + '"\r\n';
+					if (bin) reg_text += '@="\\"' + folder + file + '\\"' + command.replace(/\"/g, '\\"') + '"\r\n';
+					else reg_text += '@="cmd.exe /c start \\"\\" \\"' + folder + file + '\\""\r\n';
 				}
 				return reg_text;
 			}
